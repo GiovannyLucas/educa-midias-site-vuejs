@@ -1,7 +1,7 @@
 <template>
-  <div id="teste">
-  <v-layout>
-    <v-flex xs12 sm6 offset-sm3>
+  <v-container>
+    <v-layout row wrap>
+    <v-flex style="padding: 10px;" v-for="i in 12" :key="`12${i}`" xs12 sm6>
       <v-card>
         <v-img
           class="white--text"
@@ -30,35 +30,11 @@
       </v-card>
     </v-flex>
   </v-layout>
-  <router-view/>
-  </div>
+  </v-container>
 </template>
 
 <script>
 export default {
-  name: 'TesteWorld',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
-  }
+  name: 'Noticias'
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
