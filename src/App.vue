@@ -25,7 +25,7 @@
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
     </v-toolbar>
     <v-content>
-      <v-container fluid fill-height @click.stop="drawer = !drawer">
+      <v-container fluid fill-height>
         <v-layout justify-center>
           <router-view/>
           <v-footer id="footer" app>
@@ -72,7 +72,7 @@ export default {
   background: linear-gradient(to right, #00008B, #C71585);
 }
 #title-project {
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: 'Acme', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 #link-text {
   text-decoration: none;
