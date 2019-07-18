@@ -1,6 +1,8 @@
 <template>
-  <v-app>
-     <v-carousel>
+    <v-container>
+      <v-layout>
+        <v-flex xs12>
+            <v-carousel>
     <v-carousel-item
       v-for="(image,i) in images"
       :key="i"
@@ -9,10 +11,9 @@
     <h2 id="descri">{{ image.desc }}</h2>
     </v-carousel-item>
   </v-carousel>
-    <v-footer color="#00008B" app>
-      <span style="margin-left: 1%" class="white--text">Educa+Midias &copy; 2017</span>
-    </v-footer>
-  </v-app>
+        </v-flex>
+      </v-layout>
+    </v-container>
 </template>
 
 <script>

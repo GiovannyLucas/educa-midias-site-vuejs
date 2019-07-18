@@ -1,12 +1,58 @@
 <template>
   <div id="app">
-    <router-view/>
+    <v-navigation-drawer
+      v-model="drawer"
+      fixed
+      right
+      app
+    >
+      <v-list dense>
+        <v-list-tile v-for="(item,k) in items_menu" :key="k">
+          <v-list-tile-action>
+            <v-icon>{{item.icon}}</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>
+              <router-link :to="item.route" id="link-text">{{item.title}}</router-link>
+            </v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
+    <v-toolbar id="menu-bar" dark fixed app>
+      <v-spacer></v-spacer>
+      <v-toolbar-title id="title-project">Educa+Mídias</v-toolbar-title>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+    </v-toolbar>
+    <v-content>
+      <v-container fluid fill-height @click.stop="drawer = !drawer">
+        <v-layout justify-center>
+          <router-view/>
+          <v-footer id="footer" app>
+      <span style="margin-left: 1%" class="white--text">Educa+Midias &copy; 2017</span>
+    </v-footer>
+        </v-layout>
+      </v-container>
+    </v-content>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data: () => ({
+    items_menu: [
+      {title: 'Home', route: '/home', icon: 'home'},
+      {title: 'Galeria', route: '/galeria', icon: 'collections'},
+      {title: 'Notícias', route: '/noticias', icon: 'description'},
+      {title: 'Sobre nós', route: '/sobre', icon: 'group'},
+      {title: 'Fale Conosco', route: '/fale_conosco', icon: 'contact_support'}
+    ],
+    drawer: null
+  }),
+  props: {
+    source: String
+  }
 }
 </script>
 
@@ -18,5 +64,18 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+#menu-bar {
+  background: linear-gradient(to right, #00008B, #C71585);
+}
+#footer {
+  background: linear-gradient(to right, #00008B, #C71585);
+}
+#title-project {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+#link-text {
+  text-decoration: none;
+  color: #000;
 }
 </style>
