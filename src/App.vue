@@ -18,6 +18,18 @@
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
+      <v-list dense>
+        <v-list-tile @click.stop="drawer = !drawer">
+          <v-list-tile-action>
+            <v-icon>close</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>
+              Fechar
+            </v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
     </v-navigation-drawer>
     <v-toolbar id="menu-bar" dark fixed app>
       <v-spacer></v-spacer>
@@ -25,11 +37,11 @@
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
     </v-toolbar>
     <v-content>
-      <v-container fluid fill-height @click.stop="drawer = !drawer">
+      <v-container fluid fill-height>
         <v-layout justify-center>
           <router-view/>
           <v-footer id="footer" app>
-      <span style="margin-left: 1%" class="white--text">Educa+Midias &copy; 2017</span>
+      <span style="margin-left: 1%" class="white--text">Educa+Midias &copy; 2019</span>
     </v-footer>
         </v-layout>
       </v-container>
