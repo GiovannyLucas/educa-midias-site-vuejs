@@ -34,6 +34,9 @@
     </div>  
     </v-navigation-drawer>
     <v-toolbar id="menu-bar" dark fixed app>
+      <div>
+        <img class="logo-educa" src="./assets/logo-educa.png" alt="Logo">
+      </div>
       <v-spacer></v-spacer>
       <v-toolbar-title id="title-project">Educa+Mídias</v-toolbar-title>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
@@ -91,5 +94,8 @@ export default {
 }
 .btn-close {
   justify-content: space-between;
+}
+.logo-educa {
+  width: 70px;
 }
 </style>
