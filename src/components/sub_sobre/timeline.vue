@@ -17,41 +17,40 @@
         </v-card-text>
       </v-card>
     </v-timeline-item>
-  </v-timeline>  
+  </v-timeline>
 </template>
 <script>
 export default {
   name: 'Colaboradores',
   data: () => ({
     items: [
-    {
+      {
         color: 'red lighten-2',
         icon: 'mdi-star',
         title: 'Titulo 01',
         text: 'Teste de texto 01'
-    },
-    {
+      },
+      {
         color: 'purple darken-1',
         icon: 'mdi-book-variant',
         title: 'Titulo 02',
         text: 'Teste de texto 02'
-    },
-    {
+      },
+      {
         color: 'green lighten-1',
         icon: 'mdi-airballoon',
         title: 'Titulo 03',
         text: 'Teste de texto 03'
-    },
-    {
+      },
+      {
         color: 'indigo',
         icon: 'mdi-buffer',
         title: 'Titulo 04',
         text: 'Teste de texto 04'
-    }
+      }
     ]
   })
 }
-
 </script>
 <style scoped>
 
