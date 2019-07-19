@@ -97,6 +97,6 @@ export default {
   width: 70px;
 }
 .content {
-  margin-top: -4%;
+  margin-top: -60px;
 }
 </style>
