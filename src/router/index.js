@@ -12,6 +12,9 @@ import Localizacao from '@/components/sub_sobre/localizacao'
 import QuemSomos from '@/components/sub_sobre/quem_somos'
 import Timeline from '@/components/sub_sobre/timeline'
 
+// Admin
+import Admin from '@/components/admin/admin'
+
 Vue.use(Router)
 
 export default new Router({
@@ -65,6 +68,11 @@ export default new Router({
       path: '/sobre/timeline',
       name: 'Timeline',
       component: Timeline
+    },
+    {
+      path: '/admin',
+      name: 'Admin',
+      component: Admin
     }
   ]
 })
