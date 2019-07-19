@@ -6,6 +6,12 @@ import Noticias from '@/components/Noticias'
 import SobreNos from '@/components/Sobre_nos'
 import FaleConosco from '@/components/Fale_conosco'
 
+// Sub sobre nós
+import Colaboradores from '@/components/sub_sobre/colaboradores'
+import Localizacao from '@/components/sub_sobre/localizacao'
+import QuemSomos from '@/components/sub_sobre/quem_somos'
+import Timeline from '@/components/sub_sobre/timeline'
+
 Vue.use(Router)
 
 export default new Router({
@@ -39,6 +45,26 @@ export default new Router({
       path: '/fale_conosco',
       name: 'FaleConosco',
       component: FaleConosco
+    },
+    {
+      path: '/sobre/colaboradores',
+      name: 'colaboradores',
+      component: Colaboradores
+    },
+    {
+      path: '/sobre/localizacao',
+      name: 'localização',
+      component: Localizacao
+    },
+    {
+      path: '/sobre/quem_somos',
+      name: 'Quem somos',
+      component: QuemSomos
+    },
+    {
+      path: '/sobre/timeline',
+      name: 'Timeline',
+      component: Timeline
     }
   ]
 })

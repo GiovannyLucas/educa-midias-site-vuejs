@@ -31,7 +31,7 @@
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
-    </div>  
+    </div>
     </v-navigation-drawer>
     <v-toolbar id="menu-bar" dark fixed app>
       <v-spacer></v-spacer>

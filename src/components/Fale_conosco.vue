@@ -32,6 +32,7 @@
         ></v-textarea>
 
     <v-btn
+      id="btnEnv"
       :disabled="!valid"
       color="success"
       @click="validate"
@@ -40,6 +41,7 @@
     </v-btn>
 
     <v-btn
+      id="btnReset"
       color="error"
       @click="reset"
     >
@@ -47,6 +49,7 @@
     </v-btn>
 
     <v-btn
+      id="btnWarn"
       color="warning"
       @click="resetValidation"
     >
@@ -72,7 +75,7 @@ export default {
       email: '',
       emailRules: [
         v => !!v || 'E-mail é necessário',
-        v => /.+@.+/.test(v) || 'E-mail must be valid'
+        v => /.+@.+/.test(v) || 'E-mail precisa ser válido'
       ],
       mensage: '',
       textRules: [
@@ -95,3 +98,18 @@ export default {
     }
   }
 </script>
+
+<style scoped>
+  #btnEnv {
+    background-color: green;
+  }
+
+  #btnReset {
+    background-color: red;
+  }
+
+  #btnWarn {
+    background-color: orange;
+  }
+</style>
+
