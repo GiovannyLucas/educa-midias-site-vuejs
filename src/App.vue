@@ -6,6 +6,7 @@
       right
       app
     >
+    <div class="btn-close">
       <v-list dense>
         <v-list-tile v-for="(item,k) in items_menu" :key="k">
           <v-list-tile-action>
@@ -30,6 +31,7 @@
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
+    </div>  
     </v-navigation-drawer>
     <v-toolbar id="menu-bar" dark fixed app>
       <v-spacer></v-spacer>
@@ -40,9 +42,6 @@
       <v-container fluid fill-height>
         <v-layout justify-center>
           <router-view/>
-          <v-footer id="footer" app>
-      <span style="margin-left: 1%" class="white--text">Educa+Midias &copy; 2019</span>
-    </v-footer>
         </v-layout>
       </v-container>
     </v-content>
@@ -89,5 +88,8 @@ export default {
 #link-text {
   text-decoration: none;
   color: #000;
+}
+.btn-close {
+  justify-content: space-between;
 }
 </style>
