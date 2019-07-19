@@ -41,13 +41,11 @@
       <v-toolbar-title id="title-project">Educa+Mídias</v-toolbar-title>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
     </v-toolbar>
-    <v-content>
-      <v-container fluid fill-height>
-        <v-layout justify-center>
-          <router-view/>
-        </v-layout>
-      </v-container>
-    </v-content>
+    <div xs12 class="content">
+      <v-content>
+        <router-view />
+      </v-content>
+    </div>
   </div>
 </template>
 
@@ -97,5 +95,8 @@ export default {
 }
 .logo-educa {
   width: 70px;
+}
+.content {
+  margin-top: -4%;
 }
 </style>
