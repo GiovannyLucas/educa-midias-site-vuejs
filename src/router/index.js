@@ -8,11 +8,12 @@ import SobreNos from '@/components/Sobre_nos'
 import FaleConosco from '@/components/Fale_conosco'
 
 // Admin
-import Admin from '@/components/admin/admin'
+import Login from '@/components/admin/login'
 
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -40,9 +41,9 @@ export default new Router({
       ]
     },
     {
-      path: '/admin',
-      name: 'Admin',
-      component: Admin
+      path: '/login',
+      name: 'Login',
+      component: Login
     }
   ]
 })

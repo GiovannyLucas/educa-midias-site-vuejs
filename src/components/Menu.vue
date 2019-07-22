@@ -80,10 +80,10 @@ export default {
   margin-top: 60px;
 }
 #menu-bar {
-  background: linear-gradient(to right, #00008B, #C71585);
+  background: linear-gradient(to right, #240f6a, #f298e2);
 }
 #footer {
-  background: linear-gradient(to right, #00008B, #C71585);
+  background: linear-gradient(to right, #240f6a, #f298e2);
 }
 #title-project {
   font-family: 'Acme', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
