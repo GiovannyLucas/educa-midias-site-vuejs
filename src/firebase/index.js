@@ -4,13 +4,14 @@ import 'firebase/storage'
 import 'firebase/database'
 
 export const firebaseApp = firebase.initializeApp({
-  apiKey: process.env.VUE_APP_API_KEY,
-  authDomain: process.env.VUE_APP_AUTH_DOMAIN,
-  databaseURL: process.env.VUE_APP_DATABASE_URL,
-  projectId: process.env.VUE_APP_PROJECT_ID,
-  storageBucket: process.env.VUE_APP_STORAGE_BUCKET,
-  messagingSenderId: process.env.VUE_APP_MESSAGING_SENDER_ID,
-  appId: process.env.VUE_APP_APP_ID
+  apiKey: 'AIzaSyAeLSaUVJHx20UIrZZby1lGErCH2nsvJhc',
+  authDomain: 'site-educa-midias.firebaseapp.com',
+  databaseURL: 'https://site-educa-midias.firebaseio.com',
+  projectId: 'site-educa-midias',
+  storageBucket: '',
+  messagingSenderId: '22958374209',
+  appId: '1:22958374209:web:055dd942ce2f47d4'
+
 })
 
 export default function install (Vue) {

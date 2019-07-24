@@ -9,10 +9,11 @@ import FaleConosco from '@/components/Fale_conosco'
 
 // Admin
 import Login from '@/components/admin/login'
+import Admin from '@/components/admin/pages/index'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
@@ -29,21 +30,24 @@ export default new Router({
       ]
     },
     {
-      path: '/home',
-      name: 'Menu',
-      component: Menu,
-      children: [
-        {path: '/home', name: 'homeContent', component: Home},
-        {path: '/galeria', name: 'galeriaContent', component: Galeria},
-        {path: '/noticias', name: 'noticiasContent', component: Noticias},
-        {path: '/fale_conosco', name: 'faleConoscoContent', component: FaleConosco},
-        {path: '/sobre', name: 'sobreContent', component: SobreNos}
-      ]
+      path: '/login',
+      name: 'loginAdmin',
+      component: Login
     },
     {
-      path: '/login',
-      name: 'Login',
-      component: Login
+      path: '/admin',
+      name: 'adminHome',
+      component: Admin
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (!window.uid && to.name === 'adminHome') {
+    next({ name: 'loginAdmin' })
+  } else {
+    next()
+  }
+})
+
+export default router
