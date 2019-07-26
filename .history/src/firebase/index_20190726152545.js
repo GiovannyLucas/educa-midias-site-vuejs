@@ -11,6 +11,7 @@ export const firebaseApp = firebase.initializeApp({
   storageBucket: '',
   messagingSenderId: '22958374209',
   appId: '1:22958374209:web:055dd942ce2f47d4'
+
 })
 
 export default function install (Vue) {
