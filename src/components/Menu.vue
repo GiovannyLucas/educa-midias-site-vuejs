@@ -58,7 +58,7 @@ export default {
         {title: 'Home', route: '/home', icon: 'home'},
         {title: 'Galeria', route: '/galeria', icon: 'collections'},
         {title: 'Notícias', route: '/noticias', icon: 'description'},
-        {title: 'Sobre nós', route: '/sobre', icon: 'group'},
+        {title: 'Sobre nós', route: '/sobre', icon: 'supervised_user_circle'},
         {title: 'Fale Conosco', route: '/fale_conosco', icon: 'contact_support'}
       ],
       drawer: false
