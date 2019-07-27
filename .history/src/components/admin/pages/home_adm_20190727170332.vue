@@ -1,15 +1,11 @@
 <template>
-  <div>
-    <h1>Galeria</h1>
-    <table class="table table-hover">
+  <table class="table table-hover">
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Data Início</th>
-        <th scope="col">Data Fim</th>
-        <th scope="col">Título</th>
-        <th scope="col">Url imagem</th>
-        <th scope="col">Ações</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
       </tr>
     </thead>
     <tbody>
@@ -33,12 +29,11 @@
       </tr>
     </tbody>
   </table>
-  </div>
 </template>
 
 <script>
 export default {
-
+  name: 'homeAdmContent'
 }
 </script>
 

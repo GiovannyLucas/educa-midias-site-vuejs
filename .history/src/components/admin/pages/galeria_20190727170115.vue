@@ -5,9 +5,9 @@
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Data Início</th>
-        <th scope="col">Data Fim</th>
+        <th scope="col">Data da postagem</th>
         <th scope="col">Título</th>
+        <th scope="col">Descrição</th>
         <th scope="col">Url imagem</th>
         <th scope="col">Ações</th>
       </tr>
