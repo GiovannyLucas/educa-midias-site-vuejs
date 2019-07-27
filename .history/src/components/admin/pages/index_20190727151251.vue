@@ -9,17 +9,6 @@
     <div class="btn-close">
       <v-list dense>
         <v-list-tile @click.stop="drawer = !drawer">
-          <v-list-tile-action v-for="(item,k) in items_menu" :key="k">
-            <v-icon>{{item.icon}}</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <router-link :to="item.route">
-              <v-list-tile-title>
-                {{item.title}}
-              </v-list-tile-title>
-            </router-link>
-          </v-list-tile-content>
-
           <v-list-tile-action>
             <v-icon>close</v-icon>
           </v-list-tile-action>
@@ -49,13 +38,11 @@ export default {
   data () {
     return {
       items_menu: [
-        {title: 'Home', route: 'admin/homeAdm', icon: 'home'},
-        {title: 'Colaboradores', route: 'admin/colaboradoresAdm', icon: 'home'},
-        {title: 'Galeria', route: 'admin/galeriaAdm', icon: 'description'},
-        {title: 'Mensagens', route: '/mensagensAdm', icon: 'contact_support'},
-        {title: 'Notícias', route: 'admin/noticiasAdm', icon: 'group'},
-        {title: 'Slide', route: '/slideAdm', icon: 'contact_support'},
-        {title: 'Sobre nós', route: '/sobreAdm', icon: 'contact_support'}
+        {title: 'Home', route: '/home', icon: 'home'},
+        {title: 'Galeria', route: '/galeria', icon: 'collections'},
+        {title: 'Notícias', route: '/noticias', icon: 'description'},
+        {title: 'Sobre nós', route: '/sobre', icon: 'group'},
+        {title: 'Fale Conosco', route: '/fale_conosco', icon: 'contact_support'}
       ],
       drawer: false
     }
