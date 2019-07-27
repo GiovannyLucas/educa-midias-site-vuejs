@@ -109,7 +109,4 @@ export default {
 .content {
   margin-top: -60px;
 }
-.bg {
-  background: #000;
-}
 </style>

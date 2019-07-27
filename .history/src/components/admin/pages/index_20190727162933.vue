@@ -5,18 +5,19 @@
       fixed
       left
       app
+      dark
     >
-    <div class="bg" style="height: 100vh">
+    <div class="btn-close">
       <v-list dense>
         <img src="../../../assets/logo-educa.png" width="200" alt="">
       </v-list>
       <v-list dense>
         <v-list-tile v-for="(item,k) in items_menu" :key="k">
           <v-list-tile-action>
-            <v-icon class="color-light">{{item.icon}}</v-icon>
+            <v-icon>{{item.icon}}</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <router-link class="color-light" id="link-text" :to="item.route">
+            <router-link id="link-text" :to="item.route">
                 {{item.title}}
             </router-link>
           </v-list-tile-content>
@@ -24,10 +25,10 @@
 
           <v-list-tile @click.stop="drawer = !drawer">
           <v-list-tile-action>
-            <v-icon class="color-light">close</v-icon>
+            <v-icon>close</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title class="color-light">
+            <v-list-tile-title>
               Fechar
             </v-list-tile-title>
           </v-list-tile-content>
@@ -98,18 +99,15 @@ export default {
 }
 #link-text {
   text-decoration: none;
-  color: #fff;
+  color: #000;
 }
-.color-light {
-  color: white;
+.btn-close {
+  justify-content: space-between;
 }
 .logo-educa {
   width: 70px;
 }
 .content {
   margin-top: -60px;
-}
-.bg {
-  background: #000;
 }
 </style>

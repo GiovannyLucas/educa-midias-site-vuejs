@@ -6,7 +6,7 @@
       left
       app
     >
-    <div class="bg" style="height: 100vh">
+    <div class="bg-dark" style="height: 100vh">
       <v-list dense>
         <img src="../../../assets/logo-educa.png" width="200" alt="">
       </v-list>
@@ -108,8 +108,5 @@ export default {
 }
 .content {
   margin-top: -60px;
-}
-.bg {
-  background: #000;
 }
 </style>
