@@ -4,13 +4,13 @@ import 'firebase/storage'
 import 'firebase/database'
 
 export const firebaseApp = firebase.initializeApp({
-  apiKey: '',
-  authDomain: '',
-  databaseURL: '',
-  projectId: '',
+  apiKey: 'AIzaSyAeLSaUVJHx20UIrZZby1lGErCH2nsvJhc',
+  authDomain: 'site-educa-midias.firebaseapp.com',
+  databaseURL: 'https://site-educa-midias.firebaseio.com',
+  projectId: 'site-educa-midias',
   storageBucket: '',
-  messagingSenderId: '',
-  appId: ''
+  messagingSenderId: '22958374209',
+  appId: '1:22958374209:web:055dd942ce2f47d4'
 
 })
 

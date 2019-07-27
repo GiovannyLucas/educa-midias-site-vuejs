@@ -86,12 +86,12 @@ export default {
   data: () => ({
     valid: true,
     loading: false,
-    email: 'geovannylucas2013@outlook.com',
+    email: 'daviddosphp@gmail.com',
     emailRules: [
       v => !!v || 'E-mail do ADM é obrigatório',
       v => (v && v.length <= 100) || 'E-mail pode ter até 100 caracteres'
     ],
-    pass: '123456789',
+    pass: '987654321',
     passRules: [
       v => !!v || 'Senha é obrigatória'
     ],
