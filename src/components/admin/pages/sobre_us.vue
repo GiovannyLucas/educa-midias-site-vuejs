@@ -1,5 +1,61 @@
 <template>
-    <h1>Sobre Us</h1>
+    <div class="container">
+    <h1>Sobre nós</h1>
+    <form>
+      <legend>Membros</legend>
+      <hr>
+  <div class="form-group cont">
+    <table class="table table-hover col-md-6">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">nome</th>
+        <th scope="col">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>
+         <a href=""><i style="color: green" class="fa fa-eye"></i></a> |
+          <a href=""><i style="color: red" class="fa fa-trash"></i></a>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>
+         <a href=""><i style="color: green" class="fa fa-eye"></i></a> |
+          <a href=""><i style="color: red" class="fa fa-trash"></i></a>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>Larry</td>
+        <td>
+         <a href=""><i style="color: green" class="fa fa-eye"></i></a> |
+          <a href=""><i style="color: red" class="fa fa-trash"></i></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+    <div class="col-md-6">
+      <input type="email" class="form-control" placeholder="nome">
+    </div>
+  </div>
+  <div class="form-group">
+    <legend>Descrição</legend>
+    <hr>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+  </div>
+  <div class="form-group">
+    <legend>Imagem</legend>
+    <hr>
+    <input type="file" class="form-control">
+  </div>
+</form>
+    </div>
 </template>
 
 <script>
@@ -8,6 +64,10 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+  .cont {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 </style>
