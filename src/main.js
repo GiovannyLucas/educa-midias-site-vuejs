@@ -5,8 +5,8 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import firebaseVue from './firebase'
 
-Vue.use(firebaseVue)
 Vue.use(Vuetify)
+Vue.use(firebaseVue)
 Vue.config.productionTip = false
 
 /* eslint-disable */
