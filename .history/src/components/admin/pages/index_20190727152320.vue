@@ -9,17 +9,6 @@
     <div class="btn-close">
       <v-list dense>
         <v-list-tile @click.stop="drawer = !drawer">
-          <v-list-tile-action v-for="(item,k) in items_menu" :key="k">
-            <v-icon>{{item.icon}}</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <router-link :to="item.route">
-              <v-list-tile-title>
-                {{item.title}}
-              </v-list-tile-title>
-            </router-link>
-          </v-list-tile-content>
-
           <v-list-tile-action>
             <v-icon>close</v-icon>
           </v-list-tile-action>
