@@ -10,6 +10,13 @@ import FaleConosco from '@/components/Fale_conosco'
 // Admin
 import Login from '@/components/admin/login'
 import Admin from '@/components/admin/pages/index'
+import HomeAdmin from '@/components/admin/pages/home_adm'
+import colaboradoresAdm from '@/components/admin/pages/colaboradores'
+import galeriaAdm from '@/components/admin/pages/galeria'
+import noticiasAdm from '@/components/admin/pages/noticias'
+import slideAdm from '@/components/admin/pages/slide'
+import sobreAdm from '@/components/admin/pages/sobre_us'
+import msgAdm from '@/components/admin/pages/mensagens'
 
 Vue.use(Router)
 
@@ -37,7 +44,17 @@ const router = new Router({
     {
       path: '/admin',
       name: 'adminHome',
-      component: Admin
+      component: Admin,
+      children: [
+        {path: '/', name: 'homeAdmContent', component: HomeAdmin},
+        {path: '/homeAdm', name: 'homeAdmContent', component: HomeAdmin},
+        {path: '/colaboradoresAdm', name: 'colaboradoresAdmContent', component: colaboradoresAdm},
+        {path: '/galeriaAdm', name: 'galeriaAdmContent', component: galeriaAdm},
+        {path: '/sobreAdm', name: 'sobreUsAdmContent', component: sobreAdm},
+        {path: '/slideAdm', name: 'slideAdmContent', component: slideAdm},
+        {path: '/noticiasAdm', name: 'noticiasAdmContent', component: noticiasAdm},
+        {path: '/msgAdm', name: 'mensagensAdmContent', component: msgAdm}
+      ]
     }
   ]
 })
