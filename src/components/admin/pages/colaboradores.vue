@@ -1,7 +1,7 @@
 <template>
     <div>
     <h1>Colaboradores</h1>
-    <table class="table table-hover">
+    <table class="table table-hover tabela">
     <thead>
       <tr>
         <th scope="col">#</th>
@@ -52,7 +52,7 @@
     </tbody>
   </table>
     <v-layout justify-center>
-    <v-dialog v-model="dialog" persistent max-width="600px">
+    <v-dialog v-model="dialog" fullscreen="true" persistent max-width="600px">
       <template v-slot:activator="{ on }">
     <v-btn v-on="on" class="btn btn-info" color="blue" data-toggle="modal" data-target="#exampleModal">
       <span style="color: white;">
@@ -79,7 +79,7 @@
               </v-flex>
               <v-flex xs12>
                 <legend>Logo</legend>
-                <input type="file" name="logo">
+                <input class="form-control" type="file" name="logo">
               </v-flex>
             </v-layout>
           </v-container>
@@ -90,14 +90,14 @@
           <v-btn color="red darken-1" text @click="dialog = false">
             <span style="color: white;"> <i class="fa fa-times"></i> &nbsp; Fechar</span>
           </v-btn>
-          <v-btn color="green darken-1" text @click="dialog = false">
+          <v-btn color="green darken-1" text>
             <span style="color: white;"> <i class="fa fa-plus"></i> &nbsp; Adicionar</span>
           </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
   </v-layout>
-    </div>
+  </div>
 </template>
 
 <script>
@@ -110,5 +110,11 @@ data: () => ({
 </script>
 
 <style>
-
+.background-modal {
+  background: rgba(0, 0, 0, .5);
+  width: 100%;
+  height: 100vh;
+  z-index: 1000;
+  position: absolute;
+}
 </style>
