@@ -124,8 +124,10 @@ export default {
       let dia = data.getDate()
       let mes = data.getMonth() + 1
       let ano = data.getFullYear()
+      let hora = data.getHours()
+      let minuto = data.getMinutes()
 
-      const fullDate = `${dia}/${mes}/${ano}`
+      const fullDate = `${dia}/${mes}/${ano} - ${hora}:${minuto}`
 
       const valores = {
         data_postada: fullDate,

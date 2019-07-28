@@ -74,6 +74,7 @@ export default {
         {title: 'Mensagens', route: '/msgAdm', icon: 'announcement'},
         {title: 'Notícias', route: 'noticiasAdm', icon: 'insert_drive_file'},
         {title: 'Slide', route: '/slideAdm', icon: 'slideshow'},
+        {title: 'Root', route: '/root', icon: 'lock'},
         {title: 'Sobre nós', route: '/sobreAdm', icon: 'supervised_user_circle'}
       ],
       drawer: false,
