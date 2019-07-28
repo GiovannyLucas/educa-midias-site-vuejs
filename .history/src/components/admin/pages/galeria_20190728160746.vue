@@ -1,14 +1,14 @@
 <template>
-    <div>
-    <h1>Colaboradores</h1>
-    <table class="table table-hover tabela">
+  <div>
+    <h1>Galeria</h1>
+    <table class="table table-hover">
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">nome</th>
-        <th scope="col">Url do Facebook</th>
-        <th scope="col">Url do Instagram</th>
-        <th scope="col">Url da logo</th>
+        <th scope="col">Data Início</th>
+        <th scope="col">Data Fim</th>
+        <th scope="col">Título</th>
+        <th scope="col">Url imagem</th>
         <th scope="col">Ações</th>
       </tr>
     </thead>
@@ -16,26 +16,18 @@
       <tr>
         <th scope="row">1</th>
         <td>Mark</td>
+        <td>@twitter</td>
+        <td>@twitter</td>
         <td>Otto</td>
         <td>@mdo</td>
-        <td>@mdo</td>
-        <td>
-          <a href=""><i style="color: #1E90FF" class="fa fa-refresh"></i></a> |
-          <a href=""><i style="color: green" class="fa fa-eye"></i></a> |
-          <a href=""><i style="color: red" class="fa fa-trash"></i></a>
-        </td>
       </tr>
       <tr>
         <th scope="row">2</th>
         <td>Jacob</td>
         <td>Thornton</td>
         <td>@fat</td>
-        <td>@fat</td>
-        <td>
-         <a href=""><i style="color: #1E90FF" class="fa fa-refresh"></i></a> |
-         <a href=""><i style="color: green" class="fa fa-eye"></i></a> |
-          <a href=""><i style="color: red" class="fa fa-trash"></i></a>
-        </td>
+        <td>@twitter</td>
+        <td>@twitter</td>
       </tr>
       <tr>
         <th scope="row">3</th>
@@ -43,14 +35,11 @@
         <td>the Bird</td>
         <td>@twitter</td>
         <td>@twitter</td>
-        <td>
-          <a href=""><i style="color: #1E90FF" class="fa fa-refresh"></i></a> |
-          <a href=""><i style="color: green" class="fa fa-eye"></i></a> |
-          <a href=""><i style="color: red" class="fa fa-trash"></i></a>
-        </td>
+        <td><v-btn @click="dialog = true">open</v-btn></td>
       </tr>
     </tbody>
   </table>
+
   <v-layout justify-center>
     <v-dialog v-model="dialog" fullscreen="true" persistent max-width="600px">
       <template v-slot:activator="{ on }">
@@ -69,17 +58,13 @@
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12>
-                <v-text-field label="Nome*" required></v-text-field>
+                <v-text-field label="Título*" required></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-text-field label="Facebook*" required></v-text-field>
+                <textarea required placeholder="Descrição...*" style="width: 100%"></textarea>
               </v-flex>
               <v-flex xs12>
-                <v-text-field label="Instagram*" required></v-text-field>
-              </v-flex>
-              <v-flex xs12>
-                <legend>Logo</legend>
-                <input class="form-control" type="file" name="logo">
+                <input type="file" style="width: 100%"/>
               </v-flex>
             </v-layout>
           </v-container>
@@ -102,19 +87,18 @@
 
 <script>
 export default {
-  /* eslint-disable */
-data: () => ({
-  dialog: false,
-})
+  data: () => {
+    return {
+      dialog: false,
+      picker_inicio: new Date().toISOString().substr(0, 10),
+      picker_fim: new Date().toISOString().substr(0, 10),
+    }
+  }
 }
 </script>
 
-<style>
-.background-modal {
-  background: rgba(0, 0, 0, .5);
-  width: 100%;
-  height: 100vh;
-  z-index: 1000;
-  position: absolute;
-}
+<style scoped>
+  th {
+    text-transform: uppercase;
+  }
 </style>
