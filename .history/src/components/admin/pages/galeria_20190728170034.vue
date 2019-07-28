@@ -41,7 +41,7 @@
   </table>
 
   <v-layout justify-center>
-    <v-dialog v-model="dialog" fullscreen persistent max-width="600px">
+    <v-dialog v-model="dialog" fullscreen="true" persistent max-width="600px">
       <template v-slot:activator="{ on }">
     <v-btn v-on="on" class="btn btn-info" color="blue" data-toggle="modal" data-target="#exampleModal">
       <span style="color: white;">
@@ -106,9 +106,9 @@ export default {
       let mes = data.getMonth() + 1
       let ano = data.getFullYear()
       var hora = data.getHours()
-      var minuto = data.getMinutes()
+      var min = data.getMinutes()
 
-      const fullDate = `${dia}/${mes}/${ano} - ${hora}:${minuto}`
+      const fullDate = `${dia}/${mes}/${ano} - ${hora}:${min}`
 
       const valores = {
         id: idImg,

@@ -41,7 +41,7 @@
   </table>
 
   <v-layout justify-center>
-    <v-dialog v-model="dialog" fullscreen persistent max-width="600px">
+    <v-dialog v-model="dialog" fullscreen="true" persistent max-width="600px">
       <template v-slot:activator="{ on }">
     <v-btn v-on="on" class="btn btn-info" color="blue" data-toggle="modal" data-target="#exampleModal">
       <span style="color: white;">

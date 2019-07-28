@@ -35,7 +35,7 @@
           <td>the Bird</td>
           <td>@twitter</td>
           <td>@twitter</td>
-          <td><v-btn @click="dialog = true">open</v-btn></td>
+          <td>teste</td>
         </tr>
       </tbody>
     </table>
