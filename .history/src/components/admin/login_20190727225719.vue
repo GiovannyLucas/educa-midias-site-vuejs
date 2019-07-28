@@ -112,12 +112,10 @@ export default {
           this.loading = true
           const res = await this.$firebase.auth().signInWithEmailAndPassword(email, pass)
 
-          window.uid = res.user.uid
-          this.$router.push({ name: 'adminHome' })
+          console.log(res)
         } catch (err) {
           this.msg_alert = err.code
           this.dialog = true
-          this.reset()
         }
         this.loading = false
       }
@@ -128,12 +126,12 @@ export default {
       this.checkbox = false
     }
   },
-  created () {
-    this.$firebase.auth().onAuthStateChanged(user => {
-      window.uid = user ? user.uid : null
-
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
       if (window.uid) {
-        this.$router.push({ path: '/admin' })
+        vm.$router.push({ name: 'adminHome' })
+      } else {
+        console.log(window.uid)
       }
     })
   }

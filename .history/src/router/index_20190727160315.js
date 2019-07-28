@@ -62,8 +62,6 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   if (!window.uid && to.name === 'adminHome') {
     next({ name: 'loginAdmin' })
-  } else if (window.uid && to.name === 'loginAdmin') {
-    next({ name: 'adminHome' })
   } else {
     next()
   }

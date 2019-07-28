@@ -117,23 +117,20 @@ export default {
         } catch (err) {
           this.msg_alert = err.code
           this.dialog = true
-          this.reset()
         }
         this.loading = false
       }
     },
     reset () {
-      this.email = ''
-      this.pass = ''
-      this.checkbox = false
+      console.log(window.uid)
     }
   },
-  created () {
+  mounted () {
     this.$firebase.auth().onAuthStateChanged(user => {
       window.uid = user ? user.uid : null
 
-      if (window.uid) {
-        this.$router.push({ path: '/admin' })
+      if (!window.uid) {
+        this.$router.push({ name: 'adminHome' })
       }
     })
   }

@@ -81,6 +81,7 @@
 </template>
 
 <script>
+import { setTimeout } from 'timers';
 export default {
   name: 'loginAdmin',
   data: () => ({
@@ -117,7 +118,6 @@ export default {
         } catch (err) {
           this.msg_alert = err.code
           this.dialog = true
-          this.reset()
         }
         this.loading = false
       }
@@ -128,15 +128,11 @@ export default {
       this.checkbox = false
     }
   },
-  created () {
-    this.$firebase.auth().onAuthStateChanged(user => {
-      window.uid = user ? user.uid : null
-
-      if (window.uid) {
-        this.$router.push({ path: '/admin' })
-      }
-    })
-  }
+  mounted () {
+    setTimeout(() => {
+      console.log(window.uid)
+    }, 300)
+  },
 }
 </script>
 

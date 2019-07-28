@@ -128,7 +128,7 @@ export default {
       this.checkbox = false
     }
   },
-  created () {
+  mounted () {
     this.$firebase.auth().onAuthStateChanged(user => {
       window.uid = user ? user.uid : null
 

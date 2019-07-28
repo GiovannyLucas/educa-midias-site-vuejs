@@ -86,12 +86,12 @@ export default {
   data: () => ({
     valid: true,
     loading: false,
-    email: '',
+    email: 'daviddosphp@gmail.com',
     emailRules: [
       v => !!v || 'E-mail do ADM é obrigatório',
       v => (v && v.length <= 100) || 'E-mail pode ter até 100 caracteres'
     ],
-    pass: '',
+    pass: '987654321',
     passRules: [
       v => !!v || 'Senha é obrigatória'
     ],
@@ -106,6 +106,9 @@ export default {
       if (this.name === '' || this.pass === '' || !this.checkbox) {
         this.msg_alert = 'Preenha todos os campos e marque a opção!'
         this.dialog = true
+      } else if (this.name === '' && this.pass === '' && !this.checkbox) {
+        this.msg_alert = 'Preenha todos os campos!'
+        this.dialog = true
       } else {
         const {email, pass} = this
         try {
@@ -113,11 +116,11 @@ export default {
           const res = await this.$firebase.auth().signInWithEmailAndPassword(email, pass)
 
           window.uid = res.user.uid
+
           this.$router.push({ name: 'adminHome' })
         } catch (err) {
           this.msg_alert = err.code
           this.dialog = true
-          this.reset()
         }
         this.loading = false
       }
@@ -125,15 +128,15 @@ export default {
     reset () {
       this.email = ''
       this.pass = ''
-      this.checkbox = false
+      this.checkbox = ''
     }
   },
-  created () {
-    this.$firebase.auth().onAuthStateChanged(user => {
-      window.uid = user ? user.uid : null
-
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
       if (window.uid) {
-        this.$router.push({ path: '/admin' })
+        vm.$router.push({ name: 'adminHome' })
+      } else {
+        console.log(window.uid)
       }
     })
   }

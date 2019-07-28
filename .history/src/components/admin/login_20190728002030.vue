@@ -128,12 +128,12 @@ export default {
       this.checkbox = false
     }
   },
-  created () {
+  mounted () {
     this.$firebase.auth().onAuthStateChanged(user => {
       window.uid = user ? user.uid : null
 
       if (window.uid) {
-        this.$router.push({ path: '/admin' })
+        this.$router.push({ name: 'homeAdm' })
       }
     })
   }
