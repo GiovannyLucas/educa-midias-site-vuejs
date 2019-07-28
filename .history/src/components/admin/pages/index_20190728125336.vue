@@ -6,49 +6,33 @@
       left
       app
     >
-    <div class="bg">
-      <div>
-        <v-list dense>
-          <img src="../../../assets/logo-educa.png" width="200" alt="">
-        </v-list>
-        <v-list dense>
-          <v-list-tile v-for="(item,k) in items_menu" :key="k">
-            <v-list-tile-action>
-              <v-icon class="color-light">{{item.icon}}</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <router-link class="color-light" id="link-text" :to="item.route">
-                  {{item.title}}
-              </router-link>
-            </v-list-tile-content>
-            </v-list-tile>
-
-            <v-list-tile @click.stop="drawer = !drawer">
-            <v-list-tile-action>
-              <v-icon class="color-light">close</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title class="color-light">
-                Fechar
-              </v-list-tile-title>
-            </v-list-tile-content>
+    <div class="bg" style="height: 100vh">
+      <v-list dense>
+        <img src="../../../assets/logo-educa.png" width="200" alt="">
+      </v-list>
+      <v-list dense>
+        <v-list-tile v-for="(item,k) in items_menu" :key="k">
+          <v-list-tile-action>
+            <v-icon class="color-light">{{item.icon}}</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <router-link class="color-light" id="link-text" :to="item.route">
+                {{item.title}}
+            </router-link>
+          </v-list-tile-content>
           </v-list-tile>
-        </v-list>
-      </div>
-      <div>
-        <ul v-if="!closing" @click.stop="logout()" style="justify-content: center; list-style: none; cursor: pointer">
-            <li class="color-light">
-              Sair
-              <i class="fa fa-power-off"></i>
-            </li>
-        </ul>
-        <ul v-else style="justify-content: center; list-style: none; cursor: pointer">
-            <li class="color-light">
-              Saindo...
-              <i class="fa fa-power-off fa-spin"></i>
-            </li>
-        </ul>
-      </div>
+
+          <v-list-tile @click.stop="drawer = !drawer">
+          <v-list-tile-action>
+            <v-icon class="color-light">close</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title class="color-light">
+              Fechar
+            </v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
     </div>
     </v-navigation-drawer>
     <v-toolbar dark fixed app>
@@ -63,8 +47,12 @@
 </template>
 
 <script>
+import btnLogout from './login/btn_logout'
 export default {
   name: 'adminHome',
+  components: {
+
+  },
   data () {
     return {
       items_menu: [
@@ -76,21 +64,11 @@ export default {
         {title: 'Slide', route: '/slideAdm', icon: 'slideshow'},
         {title: 'Sobre nós', route: '/sobreAdm', icon: 'supervised_user_circle'}
       ],
-      drawer: false,
-      closing: false
+      drawer: false
     }
   },
   props: {
     source: String
-  },
-  methods: {
-    async logout () {
-      this.closing = true
-      await this.$firebase.auth().signOut()
-      this.closing = false
-
-      this.$router.push({ name: 'loginAdmin' })
-    }
   },
   mounted () {
     this.$firebase.auth().onAuthStateChanged(user => {
@@ -137,9 +115,5 @@ export default {
 }
 .bg {
   background: #000;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 </style>

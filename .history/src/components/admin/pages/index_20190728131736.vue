@@ -85,11 +85,7 @@ export default {
   },
   methods: {
     async logout () {
-      this.closing = true
-      await this.$firebase.auth().signOut()
-      this.closing = false
 
-      this.$router.push({ name: 'loginAdmin' })
     }
   },
   mounted () {

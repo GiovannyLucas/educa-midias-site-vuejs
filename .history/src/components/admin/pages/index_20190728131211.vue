@@ -36,16 +36,10 @@
         </v-list>
       </div>
       <div>
-        <ul v-if="!closing" @click.stop="logout()" style="justify-content: center; list-style: none; cursor: pointer">
+        <ul @click.stop="logout()" style="justify-content: center; list-style: none; cursor: pointer">
             <li class="color-light">
               Sair
               <i class="fa fa-power-off"></i>
-            </li>
-        </ul>
-        <ul v-else style="justify-content: center; list-style: none; cursor: pointer">
-            <li class="color-light">
-              Saindo...
-              <i class="fa fa-power-off fa-spin"></i>
             </li>
         </ul>
       </div>
@@ -76,20 +70,15 @@ export default {
         {title: 'Slide', route: '/slideAdm', icon: 'slideshow'},
         {title: 'Sobre nós', route: '/sobreAdm', icon: 'supervised_user_circle'}
       ],
-      drawer: false,
-      closing: false
+      drawer: false
     }
   },
   props: {
     source: String
   },
   methods: {
-    async logout () {
-      this.closing = true
-      await this.$firebase.auth().signOut()
-      this.closing = false
-
-      this.$router.push({ name: 'loginAdmin' })
+    logout () {
+      console.log('Deu certo')
     }
   },
   mounted () {

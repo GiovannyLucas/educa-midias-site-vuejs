@@ -6,7 +6,7 @@
       left
       app
     >
-    <div class="bg">
+    <div class="bg flex-column justify-content-between" style="height: 100vh">
       <div>
         <v-list dense>
           <img src="../../../assets/logo-educa.png" width="200" alt="">
@@ -36,18 +36,18 @@
         </v-list>
       </div>
       <div>
-        <ul v-if="!closing" @click.stop="logout()" style="justify-content: center; list-style: none; cursor: pointer">
-            <li class="color-light">
-              Sair
-              <i class="fa fa-power-off"></i>
-            </li>
-        </ul>
-        <ul v-else style="justify-content: center; list-style: none; cursor: pointer">
-            <li class="color-light">
-              Saindo...
-              <i class="fa fa-power-off fa-spin"></i>
-            </li>
-        </ul>
+        <v-list>
+          <v-list-tile @click.stop="drawer = !drawer">
+            <v-list-tile-action>
+              <v-icon class="color-light">close</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title class="color-light">
+                Fechar
+              </v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
       </div>
     </div>
     </v-navigation-drawer>
@@ -65,6 +65,9 @@
 <script>
 export default {
   name: 'adminHome',
+  components: {
+    btnLogout
+  },
   data () {
     return {
       items_menu: [
@@ -76,21 +79,11 @@ export default {
         {title: 'Slide', route: '/slideAdm', icon: 'slideshow'},
         {title: 'Sobre nós', route: '/sobreAdm', icon: 'supervised_user_circle'}
       ],
-      drawer: false,
-      closing: false
+      drawer: false
     }
   },
   props: {
     source: String
-  },
-  methods: {
-    async logout () {
-      this.closing = true
-      await this.$firebase.auth().signOut()
-      this.closing = false
-
-      this.$router.push({ name: 'loginAdmin' })
-    }
   },
   mounted () {
     this.$firebase.auth().onAuthStateChanged(user => {
@@ -137,9 +130,5 @@ export default {
 }
 .bg {
   background: #000;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 </style>
