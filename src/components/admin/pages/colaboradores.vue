@@ -51,6 +51,7 @@
       </tr>
     </tbody>
   </table>
+
     <v-layout justify-center>
     <v-dialog v-model="dialog" fullscreen="true" persistent max-width="600px">
       <template v-slot:activator="{ on }">
