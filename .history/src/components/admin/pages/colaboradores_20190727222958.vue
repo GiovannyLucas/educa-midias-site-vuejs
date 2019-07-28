@@ -20,8 +20,8 @@
         <td>@mdo</td>
         <td>@mdo</td>
         <td>
-          <a href=""><i style="color: #1E90FF" class="fa fa-refresh"></i></a> |
-          <a href=""><i style="color: green" class="fa fa-eye"></i></a> |
+         <a href=""><i style="color: #1E90FF" class="fa fa-refresh"></i></a> |
+         <a href=""><i style="color: green" class="fa fa-eye"></i></a> |
           <a href=""><i style="color: red" class="fa fa-trash"></i></a>
         </td>
       </tr>
@@ -44,8 +44,8 @@
         <td>@twitter</td>
         <td>@twitter</td>
         <td>
-          <a href=""><i style="color: #1E90FF" class="fa fa-refresh"></i></a> |
-          <a href=""><i style="color: green" class="fa fa-eye"></i></a> |
+         <a href=""><i style="color: #1E90FF" class="fa fa-refresh"></i></a> |
+         <a href=""><i style="color: green" class="fa fa-eye"></i></a> |
           <a href=""><i style="color: red" class="fa fa-trash"></i></a>
         </td>
       </tr>

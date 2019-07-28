@@ -133,7 +133,7 @@ export default {
       window.uid = user ? user.uid : null
 
       if (window.uid) {
-        this.$router.push({ name: 'homeAdmContent' })
+        this.$router.push({ path: '/homeAdm' })
       }
     })
   }

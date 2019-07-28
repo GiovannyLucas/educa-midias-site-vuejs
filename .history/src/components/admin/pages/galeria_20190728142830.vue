@@ -16,8 +16,6 @@
       <tr>
         <th scope="row">1</th>
         <td>Mark</td>
-        <td>@twitter</td>
-        <td>@twitter</td>
         <td>Otto</td>
         <td>@mdo</td>
       </tr>
@@ -26,26 +24,22 @@
         <td>Jacob</td>
         <td>Thornton</td>
         <td>@fat</td>
-        <td>@twitter</td>
-        <td>@twitter</td>
       </tr>
       <tr>
         <th scope="row">3</th>
         <td>Larry</td>
         <td>the Bird</td>
         <td>@twitter</td>
-        <td>@twitter</td>
-        <td><v-btn @click="dialog = true">open</v-btn></td>
       </tr>
     </tbody>
   </table>
 
   <template>
     <v-layout justify-center>
-      <template v-slot:activator="{ on }">
-        <v-btn color="primary" dark v-on="on">Open Dialog</v-btn>
-      </template>
       <v-dialog v-model="dialog" persistent max-width="600px">
+        <template v-slot:activator="{ on }">
+          <v-btn color="primary" dark v-on="on">Open Dialog</v-btn>
+        </template>
         <v-card>
           <v-card-title>
             <span class="headline">User Profile</span>
