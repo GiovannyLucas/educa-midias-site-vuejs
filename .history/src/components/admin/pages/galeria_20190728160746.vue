@@ -35,7 +35,7 @@
         <td>the Bird</td>
         <td>@twitter</td>
         <td>@twitter</td>
-        <td>teste</td>
+        <td><v-btn @click="dialog = true">open</v-btn></td>
       </tr>
     </tbody>
   </table>
@@ -52,16 +52,16 @@
   </template>
       <v-card>
         <v-card-title>
-          <span class="headline">Adicionar imagem</span>
+          <span class="headline">Adicionar colaborador</span>
         </v-card-title>
         <v-card-text>
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12>
-                <v-text-field v-model="form.titulo" label="Título*" required></v-text-field>
+                <v-text-field label="Título*" required></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <textarea v-model="form.descricao" required placeholder="Descrição...*" style="width: 100%"></textarea>
+                <textarea required placeholder="Descrição...*" style="width: 100%"></textarea>
               </v-flex>
               <v-flex xs12>
                 <input type="file" style="width: 100%"/>
@@ -75,7 +75,7 @@
           <v-btn color="red darken-1" text @click="dialog = false">
             <span style="color: white;"> <i class="fa fa-times"></i> &nbsp; Fechar</span>
           </v-btn>
-          <v-btn color="green darken-1" text @click.prevent="submit()">
+          <v-btn color="green darken-1" text>
             <span style="color: white;"> <i class="fa fa-plus"></i> &nbsp; Adicionar</span>
           </v-btn>
         </v-card-actions>
@@ -90,39 +90,8 @@ export default {
   data: () => {
     return {
       dialog: false,
-      form: {
-        titulo: '',
-        descricao: ''
-      }
-    }
-  },
-  methods: {
-    submit () {
-      const ref = this.$firebase.database().ref('galeria')
-      const idImg = ref.push().key
-
-      const data = new Date()
-      let dia = data.getDate()
-      let mes = data.getMonth() + 1
-      let ano = data.getFullYear()
-
-      const fullDate = `${dia}/${mes}/${ano}`
-
-      const valores = {
-        id: idImg,
-        data_postagem: fullDate,
-        descricao: this.form.descricao,
-        titulo: this.form.titulo,
-        url_img: 'puxa do storage'
-      }
-
-      ref.child(idImg).set(valores, err => {
-        if (err) {
-          console.log(err)
-        } else {
-          this.dialog = false
-        }
-      })
+      picker_inicio: new Date().toISOString().substr(0, 10),
+      picker_fim: new Date().toISOString().substr(0, 10),
     }
   }
 }

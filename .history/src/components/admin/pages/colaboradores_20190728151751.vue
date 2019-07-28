@@ -52,7 +52,7 @@
     </tbody>
   </table>
   <v-layout justify-center>
-    <v-dialog v-model="dialog" fullscreen persistent max-width="600px">
+    <v-dialog v-model="dialog" fullscreen="true" persistent max-width="600px">
       <template v-slot:activator="{ on }">
     <v-btn v-on="on" class="btn btn-info" color="blue" data-toggle="modal" data-target="#exampleModal">
       <span style="color: white;">
@@ -66,24 +66,21 @@
           <span class="headline">Adicionar colaborador</span>
         </v-card-title>
         <v-card-text>
-
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12>
-                <v-text-field v-model="form.nome" label="Nome*" required></v-text-field>
+                <v-text-field label="Nome*" required></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-text-field v-model="form.facebook" label="Facebook*" required></v-text-field>
+                <v-text-field label="Facebook*" required></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-text-field v-model="form.instagram" label="Instagram*" required></v-text-field>
+                <v-text-field label="Instagram*" required></v-text-field>
               </v-flex>
-              <!--
               <v-flex xs12>
                 <legend>Logo</legend>
                 <input class="form-control" type="file" name="logo">
               </v-flex>
-              -->
             </v-layout>
           </v-container>
           <small style="color: red;">*indica campo obrigatório</small>
@@ -93,7 +90,7 @@
           <v-btn color="red darken-1" text @click="dialog = false">
             <span style="color: white;"> <i class="fa fa-times"></i> &nbsp; Fechar</span>
           </v-btn>
-          <v-btn color="green darken-1" text @click.prevent="submit()">
+          <v-btn color="green darken-1" text>
             <span style="color: white;"> <i class="fa fa-plus"></i> &nbsp; Adicionar</span>
           </v-btn>
         </v-card-actions>
@@ -108,36 +105,7 @@ export default {
   /* eslint-disable */
 data: () => ({
   dialog: false,
-  form: {
-    nome: '',
-    facebook: '',
-    instagram: '',
-    image: 'puxa do storage'
-  }
-}),
-
-methods: {
-  submit() {
-    const ref = this.$firebase.database().ref('colaboradores');
-    const id = ref.push().key;
-
-    const valores = {
-      id,
-      nome: this.form.nome,
-      url_facebook: this.form.facebook,
-      url_instagram: this.form.instagram,
-      url_logo: this.form.image
-    }
-
-    ref.child(id).set(valores, err => {
-      if (err) {
-        console.log(err);
-      } else {
-        this.dialog = false;
-      }
-    })
-  }
-}
+})
 }
 </script>
 

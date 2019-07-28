@@ -99,24 +99,24 @@ export default {
   methods: {
     submit () {
       const ref = this.$firebase.database().ref('galeria')
-      const idImg = ref.push().key
+      const id = ref.push().key
 
       const data = new Date()
       let dia = data.getDate()
-      let mes = data.getMonth() + 1
+      let mes = data.getMonth()
       let ano = data.getFullYear()
 
-      const fullDate = `${dia}/${mes}/${ano}`
+      const fullDate = dia+'/'+mes+'/'+ano
 
       const valores = {
-        id: idImg,
+        id,
         data_postagem: fullDate,
         descricao: this.form.descricao,
         titulo: this.form.titulo,
         url_img: 'puxa do storage'
       }
 
-      ref.child(idImg).set(valores, err => {
+      ref.child(id).set(valores, err => {
         if (err) {
           console.log(err)
         } else {
