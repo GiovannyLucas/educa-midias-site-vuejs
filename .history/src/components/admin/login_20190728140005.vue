@@ -113,7 +113,7 @@ export default {
           const res = await this.$firebase.auth().signInWithEmailAndPassword(email, pass)
 
           window.uid = res.user.uid
-          this.$router.push({ name: 'homeAdmContent' })
+          this.$router.push({ name: 'adminHome' })
         } catch (err) {
           this.msg_alert = err.code
           this.dialog = true
