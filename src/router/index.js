@@ -17,6 +17,7 @@ import noticiasAdm from '@/components/admin/pages/noticias'
 import slideAdm from '@/components/admin/pages/slide'
 import sobreAdm from '@/components/admin/pages/sobre_us'
 import msgAdm from '@/components/admin/pages/mensagens'
+import rootAdm from '@/components/admin/pages/root'
 
 Vue.use(Router)
 
@@ -53,7 +54,8 @@ const router = new Router({
         {path: '/sobreAdm', name: 'sobreUsAdmContent', component: sobreAdm},
         {path: '/slideAdm', name: 'slideAdmContent', component: slideAdm},
         {path: '/noticiasAdm', name: 'noticiasAdmContent', component: noticiasAdm},
-        {path: '/msgAdm', name: 'mensagensAdmContent', component: msgAdm}
+        {path: '/msgAdm', name: 'mensagensAdmContent', component: msgAdm},
+        {path: '/root', name: 'rootAdmContent', component: rootAdm}
       ]
     }
   ]
