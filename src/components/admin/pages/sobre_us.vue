@@ -42,6 +42,12 @@
   </table>
     <div class="col-md-6">
       <input type="email" class="form-control" placeholder="nome">
+      <v-btn class="btn btn-success" color="green">
+        <span style="color: white">
+          <i class="fa fa-plus"></i>
+          &nbsp; Adicionar
+        </span>
+      </v-btn>
     </div>
   </div>
   <div class="form-group">
