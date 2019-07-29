@@ -5,37 +5,27 @@
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Data Início</th>
-        <th scope="col">Data Fim</th>
         <th scope="col">Título</th>
-        <th scope="col">Url imagem</th>
+        <th scope="col">Descrição</th>
+        <th scope="col">Imagem</th>
+        <th scope="col">Data da postagem</th>
         <th scope="col">Ações</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>@twitter</td>
-        <td>@twitter</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-        <td>@twitter</td>
-        <td>@twitter</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-        <td>@twitter</td>
-        <td>teste</td>
+      <tr v-for="(valores, k) in imagens" :key="k">
+        <th scope="row"> {{ valores.id }}</th>
+        <td> {{valores.titulo}} </td>
+        <td> {{ valores.descricao }} </td>
+        <td>
+          <img :src="valores.url_img" width="100" height="80">
+        </td>
+        <td> {{ valores.data_postagem }} </td>
+        <td>
+          <button><i style="color: blue" class="fa fa-refresh"></i></button> |
+          <button><i style="color: green" class="fa fa-eye"></i></button> |
+          <button><i style="color: red" class="fa fa-trash"></i></button>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -58,13 +48,13 @@
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12>
-                <v-text-field v-model="form.titulo" label="Título*" required></v-text-field>
+                <v-text-field :rules="tituloRules" v-model="form.titulo" label="Título*" required></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <textarea v-model="form.descricao" required placeholder="Descrição...*" style="width: 100%"></textarea>
+                <v-textarea :rules="descricaoRules" v-model="form.descricao" required label="Descrição...*" style="width: 100%"></v-textarea>
               </v-flex>
               <v-flex xs12>
-                <input type="file" @change="handleFile($event)" style="width: 100%"/>
+                <input required type="file" @change="handleFile($event)" style="width: 100%"/>
               </v-flex>
               <div xs4 class="div-img">
                 <img class="preview" alt="" v-if="view">
@@ -99,7 +89,14 @@ export default {
         file: '',
         titulo: '',
         descricao: ''
-      }
+      },
+      imagens: [],
+      tituloRules: [
+        v => !!v || 'Título é obrigatório'
+      ],
+      descricaoRules: [
+        v => !!v || 'Descrição é obrigatória'
+      ]
     }
   },
   computed: {
@@ -178,7 +175,19 @@ export default {
       } catch (err) {
         console.log(err)
       }
+    },
+    getData () {
+      const ref = this.$firebase.database().ref('galeria')
+
+      ref.on('value', data => {
+        const values = data.val()
+
+        this.imagens = Object.keys(values).map(i => values[i])
+      })
     }
+  },
+  mounted () {
+    this.getData()
   }
 }
 </script>
