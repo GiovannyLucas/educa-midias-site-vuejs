@@ -55,10 +55,10 @@
                 <v-text-field :rules="tituloRules" v-model="form.titulo" label="Título da notícia*" required></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-textarea :rules="noticiaRules" label="Escreva a notícia aqui" v-model="form.noticia"></v-textarea>
+                <v-textarea :rules="noticiaRules" label="Escreva a notícia aqui" class="form-control" v-model="form.noticia" rows="3"></v-textarea>
               </v-flex>
               <v-flex xs12>
-                <v-textarea :rules="resumoRules" label="Escreva o resumo aqui" v-model="form.resumo"></v-textarea>
+                <v-textarea :rules="resumoRules" label="Escreva o resumo aqui" class="form-control" v-model="form.resumo" rows="3"></v-textarea>
               </v-flex>
               <v-flex xs12>
                 <input required type="file" @change="handleFile($event)" style="width: 100%"/>

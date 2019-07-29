@@ -52,13 +52,13 @@
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12>
-                <v-text-field :rules="tituloRules" v-model="form.titulo" label="Título da notícia*" required></v-text-field>
+                <v-text-field v-model="form.titulo" label="Título da notícia*" required></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-textarea :rules="noticiaRules" label="Escreva a notícia aqui" v-model="form.noticia"></v-textarea>
+                <textarea placeholder="Escreva a notícia aqui" class="form-control" v-model="form.noticia" rows="3"></textarea>
               </v-flex>
               <v-flex xs12>
-                <v-textarea :rules="resumoRules" label="Escreva o resumo aqui" v-model="form.resumo"></v-textarea>
+                <textarea placeholder="Escreva o resumo aqui" class="form-control" v-model="form.resumo" rows="3"></textarea>
               </v-flex>
               <v-flex xs12>
                 <input required type="file" @change="handleFile($event)" style="width: 100%"/>
@@ -97,16 +97,7 @@ export default {
       titulo: '',
       file: ''
     },
-    noticias: [],
-    tituloRules: [
-      v => !!v || 'Título é obrigatório'
-    ],
-    noticiaRules: [
-      v => !!v || 'Notícia é obrigatória'
-    ],
-    resumoRules: [
-      v => !!v || 'Resumo é obrigatório'
-    ]
+    noticias: []
   }),
   computed: {
     fileName () {
