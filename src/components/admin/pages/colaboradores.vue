@@ -14,22 +14,22 @@
     </thead>
     <tbody>
       <tr v-for="(valores, k) in colaboradores" :key="k">
-        <th scope="row"> {{ valores.id }} </th>
+        <th scope="row"> {{ valores.id }}</th>
         <td> {{valores.nome}} </td>
         <td> {{ valores.url_facebook }} </td>
         <td> {{ valores.url_instagram }} </td>
         <td> {{ valores.url_logo }} </td>
         <td>
-          <a href=""><i style="color: #1E90FF" class="fa fa-refresh"></i></a> |
-          <a href=""><i style="color: green" class="fa fa-eye"></i></a> |
-          <a href=""><i style="color: red" class="fa fa-trash"></i></a>
+          <button><i style="color: blue" class="fa fa-refresh"></i></button> |
+          <button><i style="color: green" class="fa fa-eye"></i></button> |
+          <button @click="removeItem(valores.id)" ><i style="color: red" class="fa fa-trash"></i></button>
         </td>
       </tr>
     </tbody>
   </table>
   <span
     style="font-size: 13pt; color: grey"
-    v-if="!colaboradores.length"
+    v-if="colaboradores.length == 0"
   >
     Nenhum dado encontrado!
   </span>
@@ -94,7 +94,7 @@ data: () => ({
     nome: '',
     facebook: '',
     instagram: '',
-    image: 'puxa do storage'
+    image: ''
   },
   colaboradores: []
 }),
@@ -114,9 +114,13 @@ methods: {
 
     ref.child(id).set(valores, err => {
       if (err) {
-        console.log(err);
+        console.log(err)
       } else {
-        this.dialog = false;
+        this.form.nome = ''
+        this.form.facebook = ''
+        this.form.instagram = ''
+        this.form.image = ''
+        this.dialog = false
       }
     })
   },
@@ -129,6 +133,16 @@ methods: {
 
       this.colaboradores = Object.keys(values).map(i => values[i])
     })
+  },
+
+  removeItem (key) {
+    if (this.colaboradores.length == 1) {
+      this.colaboradores = []
+    }
+
+    const ref = this.$firebase.database().ref('colaboradores')
+
+    ref.child(key).remove()
   }
 },
 mounted () {
