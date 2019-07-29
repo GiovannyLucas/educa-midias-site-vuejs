@@ -29,7 +29,7 @@
   </table>
   <span
     style="font-size: 13pt; color: grey"
-    v-if="noticias.length == 0"
+    v-if="!noticias.length"
   >
     Nenhum dado encontrado!
   </span>
@@ -52,21 +52,20 @@
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12>
-                <v-text-field v-model="form.titulo" label="Título da notícia*" required></v-text-field>
-              </v-flex>
-              <v-flex xs12>
                 <textarea placeholder="Escreva a notícia aqui" class="form-control" v-model="form.noticia" rows="3"></textarea>
               </v-flex>
               <v-flex xs12>
                 <textarea placeholder="Escreva o resumo aqui" class="form-control" v-model="form.resumo" rows="3"></textarea>
               </v-flex>
               <v-flex xs12>
-                <input required type="file" @change="handleFile($event)" style="width: 100%"/>
+                <v-text-field v-model="form.titulo" label="título*" required></v-text-field>
               </v-flex>
-              <div xs4 class="div-img">
-                <img class="preview" alt="" v-if="view">
-                <v-icon class="icon-close" v-if="form.file" @click="clearFile()">close</v-icon>
-              </div>
+              <!--
+              <v-flex xs12>
+                <legend>Logo</legend>
+                <input class="form-control" type="file" name="logo">
+              </v-flex>
+              -->
             </v-layout>
           </v-container>
           <small style="color: red;">*indica campo obrigatório</small>
@@ -88,94 +87,45 @@
 
 <script>
 export default {
+
   data: () => ({
     dialog: false,
-    view: true,
     form: {
       noticia: '',
       resumo: '',
-      titulo: '',
-      file: ''
+      titulo: ''
     },
     noticias: []
   }),
-  computed: {
-    fileName () {
-      const {file} = this.form
-
-      if (file) {
-        const split = file.name.split('.')
-        return `${split[0]}-${new Date().getTime()}.${split[1]}`
-      } else {
-        return ''
-      }
-    }
-  },
   methods: {
-    handleFile (evt) {
-      this.form.file = ''
-      this.view = true
-      this.form.file = evt.target.files[0]
+    submit () {
+      const ref = this.$firebase.database().ref('noticias')
+      const id = ref.push().key
 
-      const durl = this.form.file
+      const data = new Date()
+      let dia = data.getDate()
+      let mes = data.getMonth() + 1
+      let ano = data.getFullYear()
+      let hora = data.getHours()
+      let minuto = data.getMinutes()
 
-      const preview = document.querySelector('.preview')
+      const fullDate = `${dia}/${mes}/${ano} - ${hora}:${minuto}`
 
-      const fr = new FileReader()
-
-      fr.onload = (e) => (preview.src = e.target.result)
-      fr.readAsDataURL(durl)
-    },
-    clearFile () {
-      this.form.file = ''
-      this.view = false
-      const preview = document.querySelector('.preview')
-
-      preview.src = ''
-      this.view = true
-    },
-    async submit () {
-      let url
-
-      try {
-        const ref = this.$firebase.database().ref('noticias')
-        const id = ref.push().key
-
-        const snapshot = await this.$firebase.storage()
-          .ref('noticias')
-          .child(this.fileName)
-          .put(this.form.file)
-
-        url = await snapshot.ref.getDownloadURL()
-
-        const data = new Date()
-        let dia = data.getDate()
-        let mes = data.getMonth() + 1
-        let ano = data.getFullYear()
-        let hora = data.getHours()
-        let minuto = data.getMinutes()
-
-        const fullDate = `${dia}/${mes}/${ano}-${hora}:${minuto}`
-
-        const valores = {
-          data_postada: fullDate,
-          id,
-          img: url,
-          noticia: this.form.noticia,
-          resumo: this.form.resumo,
-          titulo: this.form.titulo
-        }
-
-        ref.child(id).set(valores, err => {
-          if (err) {
-            console.log(err)
-          } else {
-            this.dialog = false
-          }
-        })
-      } catch (err) {
-        console.log(err)
+      const valores = {
+        data_postada: fullDate,
+        id,
+        noticia: this.form.noticia,
+        resumo: this.form.resumo,
+        titulo: this.form.titulo
       }
+
+      ref.child(id).set(valores, err => {
+        if (err) {
+          console.log(err)
+        } else {
+          this.dialog = false
+        }
+      })
     },
 
     getData () {
@@ -195,26 +145,5 @@ export default {
 </script>
 
 <style>
-th {
-  text-transform: uppercase;
-}
-.preview {
-  width: 40%;
-  transform: scale(1);
-  transition: 1s;
-}
-.preview:hover {
-  transform: scale(1.3);
-  transition: 1s;
-}
-.div-img {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-.icon-close {
-  margin-top: -20%;
-  cursor: pointer;
-}
+
 </style>
