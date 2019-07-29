@@ -126,7 +126,7 @@ export default {
 
       const fr = new FileReader()
 
-      fr.onload = (e) => (preview.src = e.target.result)
+      fr.onload = e => preview.src = e.target.result
       fr.readAsDataURL(durl)
     },
     clearFile () {
@@ -158,7 +158,7 @@ export default {
         var hora = data.getHours()
         var minuto = data.getMinutes()
 
-        const fullDate = `${dia}/${mes}/${ano}-${hora}:${minuto}`
+        const fullDate = `${dia}/${mes}/${ano} - ${hora}:${minuto}`
 
         const valores = {
           id: idImg,
