@@ -52,13 +52,13 @@
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12>
-                <v-text-field v-model="form.nome" label="Nome*" required></v-text-field>
+                <v-text-field :rules="nomeRules" v-model="form.nome" label="Nome*" required></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-text-field v-model="form.facebook" label="Facebook*" required></v-text-field>
+                <v-text-field :rules="faceRules" v-model="form.facebook" label="Facebook*" required></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-text-field v-model="form.instagram" label="Instagram*" required></v-text-field>
+                <v-text-field :rules="instaRules" v-model="form.instagram" label="Instagram*" required></v-text-field>
               </v-flex>
               <!--
               <v-flex xs12>
@@ -96,7 +96,16 @@ data: () => ({
     instagram: '',
     image: ''
   },
-  colaboradores: []
+  colaboradores: [],
+  nomeRules: [
+    v => !!v || 'Nome é obrigatório'
+  ],
+  faceRules: [
+    v => !!v || 'Facebook é obrigatório'
+  ],
+  instaRules: [
+    v => !!v || 'Instagram é obrigatório'
+  ]
 }),
 
 methods: {
