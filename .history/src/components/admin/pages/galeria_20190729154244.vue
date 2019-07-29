@@ -102,18 +102,6 @@ export default {
       }
     }
   },
-  computed: {
-    fileName () {
-      const {file} = this.form
-
-      if (file) {
-        const split = file.name.split('.')
-        return `${split[0]}-${new Date().getTime()}.${split[1]}`
-      } else {
-        return ''
-      }
-    }
-  },
   methods: {
     handleFile (evt) {
       this.form.file = ''
@@ -126,7 +114,7 @@ export default {
 
       const fr = new FileReader()
 
-      fr.onload = (e) => (preview.src = e.target.result)
+      fr.onload = e => preview.src = e.target.result
       fr.readAsDataURL(durl)
     },
     clearFile () {
@@ -135,49 +123,36 @@ export default {
       const preview = document.querySelector('.preview')
 
       preview.src = ''
-      this.view = true
+
     },
-    async submit () {
-      let url
+    submit () {
+      const ref = this.$firebase.database().ref('galeria')
+      const idImg = ref.push().key
 
-      try {
-        const ref = this.$firebase.database().ref('galeria')
-        const idImg = ref.push().key
+      const data = new Date()
+      let dia = data.getDate()
+      let mes = data.getMonth() + 1
+      let ano = data.getFullYear()
+      var hora = data.getHours()
+      var minuto = data.getMinutes()
 
-        const snapshot = await this.$firebase.storage()
-          .ref('galeria')
-          .child(this.fileName)
-          .put(this.form.file)
+      const fullDate = `${dia}/${mes}/${ano} - ${hora}:${minuto}`
 
-        url = await snapshot.ref.getDownloadURL()
-
-        const data = new Date()
-        let dia = data.getDate()
-        let mes = data.getMonth() + 1
-        let ano = data.getFullYear()
-        var hora = data.getHours()
-        var minuto = data.getMinutes()
-
-        const fullDate = `${dia}/${mes}/${ano}-${hora}:${minuto}`
-
-        const valores = {
-          id: idImg,
-          data_postagem: fullDate,
-          descricao: this.form.descricao,
-          titulo: this.form.titulo,
-          url_img: url
-        }
-
-        ref.child(idImg).set(valores, err => {
-          if (err) {
-            console.log(err)
-          } else {
-            this.dialog = false
-          }
-        })
-      } catch (err) {
-        console.log(err)
+      const valores = {
+        id: idImg,
+        data_postagem: fullDate,
+        descricao: this.form.descricao,
+        titulo: this.form.titulo,
+        url_img: 'puxa do storage'
       }
+
+      ref.child(idImg).set(valores, err => {
+        if (err) {
+          console.log(err)
+        } else {
+          this.dialog = false
+        }
+      })
     }
   }
 }
@@ -193,7 +168,7 @@ th {
   transition: 1s;
 }
 .preview:hover {
-  transform: scale(1.3);
+  transform: scale(2);
   transition: 1s;
 }
 .div-img {

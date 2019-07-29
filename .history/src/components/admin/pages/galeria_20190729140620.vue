@@ -66,10 +66,9 @@
               <v-flex xs12>
                 <input type="file" @change="handleFile($event)" style="width: 100%"/>
               </v-flex>
-              <div xs4 class="div-img">
-                <img class="preview" alt="" v-if="view">
-                <v-icon class="icon-close" v-if="form.file" @click="clearFile()">close</v-icon>
-              </div>
+              <v-flex xs12 v-if="form.file" style="justify-content: center; align-items: center">
+                <span>{{ form.file.name }}</span>
+              </v-flex>
             </v-layout>
           </v-container>
           <small style="color: red;">*indica campo obrigatório</small>
@@ -94,7 +93,6 @@ export default {
   data: () => {
     return {
       dialog: false,
-      view: true,
       form: {
         file: '',
         titulo: '',
@@ -102,108 +100,53 @@ export default {
       }
     }
   },
-  computed: {
-    fileName () {
-      const {file} = this.form
-
-      if (file) {
-        const split = file.name.split('.')
-        return `${split[0]}-${new Date().getTime()}.${split[1]}`
-      } else {
-        return ''
-      }
-    }
-  },
   methods: {
     handleFile (evt) {
-      this.form.file = ''
-      this.view = true
       this.form.file = evt.target.files[0]
-
-      const durl = this.form.file
-
-      const preview = document.querySelector('.preview')
 
       const fr = new FileReader()
 
-      fr.onload = (e) => (preview.src = e.target.result)
-      fr.readAsDataURL(durl)
-    },
-    clearFile () {
-      this.form.file = ''
-      this.view = false
-      const preview = document.querySelector('.preview')
-
-      preview.src = ''
-      this.view = true
-    },
-    async submit () {
-      let url
-
-      try {
-        const ref = this.$firebase.database().ref('galeria')
-        const idImg = ref.push().key
-
-        const snapshot = await this.$firebase.storage()
-          .ref('galeria')
-          .child(this.fileName)
-          .put(this.form.file)
-
-        url = await snapshot.ref.getDownloadURL()
-
-        const data = new Date()
-        let dia = data.getDate()
-        let mes = data.getMonth() + 1
-        let ano = data.getFullYear()
-        var hora = data.getHours()
-        var minuto = data.getMinutes()
-
-        const fullDate = `${dia}/${mes}/${ano}-${hora}:${minuto}`
-
-        const valores = {
-          id: idImg,
-          data_postagem: fullDate,
-          descricao: this.form.descricao,
-          titulo: this.form.titulo,
-          url_img: url
-        }
-
-        ref.child(idImg).set(valores, err => {
-          if (err) {
-            console.log(err)
-          } else {
-            this.dialog = false
-          }
-        })
-      } catch (err) {
-        console.log(err)
+      fr.onLoadend = function () {
+        console.log(fr.result)
       }
+      const e = fr.readAsDataURL(this.form.file)
+      console.log(e)
+    },
+    submit () {
+      const ref = this.$firebase.database().ref('galeria')
+      const idImg = ref.push().key
+
+      const data = new Date()
+      let dia = data.getDate()
+      let mes = data.getMonth() + 1
+      let ano = data.getFullYear()
+      var hora = data.getHours()
+      var minuto = data.getMinutes()
+
+      const fullDate = `${dia}/${mes}/${ano} - ${hora}:${minuto}`
+
+      const valores = {
+        id: idImg,
+        data_postagem: fullDate,
+        descricao: this.form.descricao,
+        titulo: this.form.titulo,
+        url_img: 'puxa do storage'
+      }
+
+      ref.child(idImg).set(valores, err => {
+        if (err) {
+          console.log(err)
+        } else {
+          this.dialog = false
+        }
+      })
     }
   }
 }
 </script>
 
 <style scoped>
-th {
-  text-transform: uppercase;
-}
-.preview {
-  width: 40%;
-  transform: scale(1);
-  transition: 1s;
-}
-.preview:hover {
-  transform: scale(1.3);
-  transition: 1s;
-}
-.div-img {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-.icon-close {
-  margin-top: -20%;
-  cursor: pointer;
-}
+  th {
+    text-transform: uppercase;
+  }
 </style>
