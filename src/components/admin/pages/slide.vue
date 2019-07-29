@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Galeria</h1>
+    <h1>Slide</h1>
     <table class="table table-hover">
     <thead>
       <tr>
@@ -13,33 +13,26 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>@twitter</td>
-        <td>@twitter</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-        <td>@twitter</td>
-        <td>@twitter</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-        <td>@twitter</td>
-        <td>teste</td>
+      <tr v-for="(valores, k) in slides" :key="k">
+        <th scope="row"> {{ valores.id }} </th>
+        <td> {{ valores.Data_Inicio }} </td>
+        <td> {{ valores.Data_Fim }} </td>
+        <td> {{ valores.Titulo }} </td>
+        <td> {{ valores.url }} </td>
+        <td>
+         <a href=""><i style="color: #1E90FF" class="fa fa-refresh"></i></a> |
+         <a href=""><i style="color: green" class="fa fa-eye"></i></a> |
+          <a href=""><i style="color: red" class="fa fa-trash"></i></a>
+        </td>
       </tr>
     </tbody>
   </table>
-
+  <span
+    style="font-size: 13pt; color: grey"
+    v-if="!slides.length"
+  >
+    Nenhum dado encontrado!
+  </span>
   <v-layout justify-center>
     <v-dialog v-model="dialog" fullscreen persistent max-width="600px">
       <template v-slot:activator="{ on }">
@@ -101,7 +94,8 @@ export default {
         titulo: '',
         descricao: '',
         image: 'puxa do storage'
-      }
+      },
+      slides: []
     }
   },
   methods: {
@@ -130,7 +124,20 @@ export default {
           this.dialog = false
         }
       })
+    },
+
+    getData () {
+      const ref = this.$firebase.database().ref('slide')
+
+      ref.on('value', data => {
+        const values = data.val()
+
+        this.slides = Object.keys(values).map(i => values[i])
+      })
     }
+  },
+  mounted () {
+    this.getData()
   }
 }
 </script>

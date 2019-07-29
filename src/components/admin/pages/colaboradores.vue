@@ -13,36 +13,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-        <td>
-          <a href=""><i style="color: #1E90FF" class="fa fa-refresh"></i></a> |
-          <a href=""><i style="color: green" class="fa fa-eye"></i></a> |
-          <a href=""><i style="color: red" class="fa fa-trash"></i></a>
-        </td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-        <td>@fat</td>
-        <td>
-         <a href=""><i style="color: #1E90FF" class="fa fa-refresh"></i></a> |
-         <a href=""><i style="color: green" class="fa fa-eye"></i></a> |
-          <a href=""><i style="color: red" class="fa fa-trash"></i></a>
-        </td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-        <td>@twitter</td>
+      <tr v-for="(valores, k) in colaboradores" :key="k">
+        <th scope="row"> {{ valores.id }} </th>
+        <td> {{valores.nome}} </td>
+        <td> {{ valores.url_facebook }} </td>
+        <td> {{ valores.url_instagram }} </td>
+        <td> {{ valores.url_logo }} </td>
         <td>
           <a href=""><i style="color: #1E90FF" class="fa fa-refresh"></i></a> |
           <a href=""><i style="color: green" class="fa fa-eye"></i></a> |
@@ -51,6 +27,12 @@
       </tr>
     </tbody>
   </table>
+  <span
+    style="font-size: 13pt; color: grey"
+    v-if="!colaboradores.length"
+  >
+    Nenhum dado encontrado!
+  </span>
   <v-layout justify-center>
     <v-dialog v-model="dialog" fullscreen persistent max-width="600px">
       <template v-slot:activator="{ on }">
@@ -113,7 +95,8 @@ data: () => ({
     facebook: '',
     instagram: '',
     image: 'puxa do storage'
-  }
+  },
+  colaboradores: []
 }),
 
 methods: {
@@ -136,7 +119,20 @@ methods: {
         this.dialog = false;
       }
     })
+  },
+
+  getData () {
+    const ref = this.$firebase.database().ref('colaboradores')
+
+    ref.on('value', data => {
+      const values = data.val()
+
+      this.colaboradores = Object.keys(values).map(i => values[i])
+    })
   }
+},
+mounted () {
+  this.getData()
 }
 }
 </script>
