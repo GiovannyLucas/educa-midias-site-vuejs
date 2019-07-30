@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Slide</h1>
+    <hr>
     <table class="table table-hover">
     <thead>
       <tr>
@@ -20,16 +21,16 @@
         <td> {{ valores.Titulo }} </td>
         <td> {{ valores.url }} </td>
         <td>
-         <a href=""><i style="color: #1E90FF" class="fa fa-refresh"></i></a> |
-         <a href=""><i style="color: green" class="fa fa-eye"></i></a> |
-          <a href=""><i style="color: red" class="fa fa-trash"></i></a>
+          <button><i style="color: blue" class="fa fa-refresh"></i></button> |
+          <button><i style="color: green" class="fa fa-eye"></i></button> |
+          <button @click="removeItem(valores.id)" ><i style="color: red" class="fa fa-trash"></i></button>
         </td>
       </tr>
     </tbody>
   </table>
   <span
     style="font-size: 13pt; color: grey"
-    v-if="!slides.length"
+    v-if="slides.length === 0"
   >
     Nenhum dado encontrado!
   </span>
@@ -62,8 +63,12 @@
                 <v-text-field v-model="form.titulo" label="Título*" required></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <input type="file" style="width: 100%"/>
+                <input required type="file" @change="handleFile($event)" style="width: 100%"/>
               </v-flex>
+              <div xs4 class="div-img">
+                <img class="preview" alt="" v-if="view">
+                <v-icon class="icon-close" v-if="form.file" @click="clearFile()">close</v-icon>
+              </div>
             </v-layout>
           </v-container>
           <small style="color: red;">*indica campo obrigatório</small>
@@ -88,18 +93,55 @@ export default {
   data: () => {
     return {
       dialog: false,
+      view: true,
       form: {
         pickerInicio: '',
         pickerFim: '',
         titulo: '',
         descricao: '',
-        image: 'puxa do storage'
+        file: ''
       },
       slides: []
     }
   },
+  computed: {
+    fileName () {
+      const {file} = this.form
+
+      if (file) {
+        const split = file.name.split('.')
+        return `${split[0]}-${new Date().getTime()}.${split[1]}`
+      } else {
+        return ''
+      }
+    }
+  },
   methods: {
-    submit () {
+    handleFile (evt) {
+      this.form.file = ''
+      this.view = true
+      this.form.file = evt.target.files[0]
+
+      const durl = this.form.file
+
+      const preview = document.querySelector('.preview')
+
+      const fr = new FileReader()
+
+      fr.onload = (e) => (preview.src = e.target.result)
+      fr.readAsDataURL(durl)
+    },
+    clearFile () {
+      this.form.file = ''
+      this.view = false
+      const preview = document.querySelector('.preview')
+
+      preview.src = ''
+      this.view = true
+    },
+    async submit () {
+      let url
+
       const ref = this.$firebase.database().ref('slide')
       const key = ref.push().key
 
@@ -109,12 +151,19 @@ export default {
       const pickerFin = this.form.pickerFim.split('-')
       const pckF = `${pickerFin[2]}/${pickerFin[1]}/${pickerFin[0]}`
 
+      const snapshot = await this.$firebase.storage()
+        .ref('slide')
+        .child(this.fileName)
+        .put(this.form.file)
+
+      url = await snapshot.ref.getDownloadURL()
+
       const valores = {
         Data_Fim: pckF,
         Data_Inicio: pckI,
         Titulo: this.form.titulo,
         id: key,
-        url: this.form.image
+        url
       }
 
       ref.child(key).set(valores, err => {
@@ -134,6 +183,15 @@ export default {
 
         this.slides = Object.keys(values).map(i => values[i])
       })
+    },
+    removeItem (key) {
+      if (this.slides.length === 1) {
+        this.slides = []
+      }
+
+      const ref = this.$firebase.database().ref('slide')
+
+      ref.child(key).remove()
     }
   },
   mounted () {

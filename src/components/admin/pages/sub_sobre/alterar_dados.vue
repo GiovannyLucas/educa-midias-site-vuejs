@@ -1,48 +1,25 @@
 <template>
-  <div xs12>
-    <v-tabs
-      v-model="active"
-      color="white"
-      slider-color="black"
-    >
-    <v-tab
-      ripple
-    >
-      Ver sobre
-    </v-tab>
-    <v-tab-item>
-    <v-card flat>
-      <v-container class="sub-content">
-        <VerDados />
-      </v-container>
-    </v-card>
-    </v-tab-item>
-    <!--TAB Colaboradores-->
-      <v-tab
-        ripple
-      >
-        Alterar sobre
-      </v-tab>
-      <v-tab-item>
-      <v-card flat>
-        <v-container class="sub-content">
-          <AlterarDados />
-        </v-container>
-      </v-card>
-      </v-tab-item>
-    </v-tabs>
+  <div class="container">
+  <h1>Alterar dados sobre nós</h1>
+    <v-flex>
+      <v-textarea label="Descreva o que é o projeto, o nome dos seus membros" :rules="descricaoRules" v-model="form.descricao"></v-textarea>
+    </v-flex>
+    <v-flex xs12>
+      <input required type="file" @change="handleFile($event)" style="width: 100%"/>
+    </v-flex>
+    <div xs4 class="div-img">
+      <img class="preview" alt="" v-if="view">
+      <v-icon class="icon-close" v-if="form.file" @click="clearFile()">close</v-icon>
+    </div>
+    <div class="form-group">
+      <v-btn color="green darken-1" text @click="submit()">
+        <span style="color: white;"> <i class="fa fa-plus"></i> &nbsp; Adicionar</span>
+      </v-btn>
+    </div>
   </div>
 </template>
-
 <script>
-import AlterarDados from './sub_sobre/alterar_dados'
-import VerDados from './sub_sobre/ver_dados'
-
 export default {
-  components: {
-    AlterarDados,
-    VerDados
-  },
   data: () => ({
     view: true,
     form: {

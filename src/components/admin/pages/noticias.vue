@@ -1,6 +1,7 @@
 <template>
     <div>
     <h1>Notícias</h1>
+    <hr>
     <table class="table table-hover">
     <thead>
       <tr>
@@ -22,7 +23,7 @@
         <td>
           <button><i style="color: blue" class="fa fa-refresh"></i></button> |
           <button><i style="color: green" class="fa fa-eye"></i></button> |
-          <button><i style="color: red" class="fa fa-trash" @click="removeItem(removeItem)"></i></button>
+          <button @click="removeItem(valores.id)"><i style="color: red" class="fa fa-trash"></i></button>
         </td>
       </tr>
     </tbody>
@@ -179,6 +180,10 @@ export default {
           if (err) {
             console.log(err)
           } else {
+            this.form.noticia = ''
+            this.form.resumo = ''
+            this.form.titulo = ''
+            this.form.file = ''
             this.dialog = false
           }
         })

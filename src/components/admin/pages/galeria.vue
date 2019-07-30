@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Galeria</h1>
+    <hr>
     <table class="table table-hover">
     <thead>
       <tr>
@@ -24,7 +25,7 @@
         <td>
           <button><i style="color: blue" class="fa fa-refresh"></i></button> |
           <button><i style="color: green" class="fa fa-eye"></i></button> |
-          <button><i style="color: red" class="fa fa-trash"></i></button>
+          <button @click="removeItem(valores.id)" ><i style="color: red" class="fa fa-trash"></i></button>
         </td>
       </tr>
     </tbody>
@@ -184,6 +185,15 @@ export default {
 
         this.imagens = Object.keys(values).map(i => values[i])
       })
+    },
+    removeItem (key) {
+      if (this.imagens.length === 1) {
+        this.imagens = []
+      }
+
+      const ref = this.$firebase.database().ref('galeria')
+
+      ref.child(key).remove()
     }
   },
   mounted () {
