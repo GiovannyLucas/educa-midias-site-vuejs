@@ -24,7 +24,7 @@
         </td>
         <td>
           <button><i style="color: blue" class="fa fa-refresh"></i></button> |
-          <button><i style="color: green" class="fa fa-eye"></i></button> |
+          <button @click="getDataUnica(valores.id)"><i style="color: green" class="fa fa-eye"></i></button> |
           <button @click="removeItem(valores.id)" ><i style="color: red" class="fa fa-trash"></i></button>
         </td>
       </tr>
@@ -87,6 +87,33 @@
       </v-card>
     </v-dialog>
   </v-layout>
+
+  <v-layout justify-center>
+    <v-dialog v-model="dialog2" fullscreen hide-overlay transition="dialog-bottom-transition">
+      <v-card class="card-dialog">
+        <v-toolbar dark color="primary">
+          <v-btn icon dark @click="dialog2 = false">
+            <v-icon>close</v-icon>
+          </v-btn>
+          <v-toolbar-title>Ver slide</v-toolbar-title>
+          <v-spacer></v-spacer>
+        </v-toolbar>
+        <v-list three-line subheader>
+          <v-subheader>{{ this.mensage[3] }}</v-subheader>
+          <v-list-item><br>
+            <v-list-item-content xs12>
+              <v-list-item-title style="font-size: 25px">{{ this.mensage[2] }}</v-list-item-title><br>
+              <v-list-item-subtitle xs12>
+                <img :src="mensage[4]" style="width: 50%; height: 40vh" alt="Logo do colaborador"><br><br>
+                <span>Data início: {{ this.mensage[1] }}</span><br><br>
+                <span>Data fim: {{ this.mensage[0] }}</span>
+              </v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-card>
+    </v-dialog>
+  </v-layout>
   </div>
 </template>
 
@@ -103,7 +130,9 @@ export default {
         descricao: '',
         file: ''
       },
-      slides: []
+      slides: [],
+      dialog2: false,
+      mensage: []
     }
   },
   computed: {
@@ -193,6 +222,16 @@ export default {
       const ref = this.$firebase.database().ref('slide')
 
       ref.child(key).remove()
+    },
+    getDataUnica (id) {
+      const ref = this.$firebase.database().ref(`slide/${id}`)
+
+      ref.on('value', data => {
+        const values = data.val()
+
+        this.mensage = Object.keys(values).map(i => values[i])
+      })
+      this.dialog2 = true
     }
   },
   mounted () {
