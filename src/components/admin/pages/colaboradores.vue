@@ -7,7 +7,6 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col">nome</th>
-        <th scope="col">Url do Facebook</th>
         <th scope="col">Url do Instagram</th>
         <th scope="col">Logo</th>
         <th scope="col">Ações</th>
@@ -17,7 +16,6 @@
       <tr v-for="(valores, k) in colaboradores" :key="k">
         <th scope="row"> {{ valores.id }}</th>
         <td> {{valores.nome}} </td>
-        <td> {{ valores.url_facebook }} </td>
         <td> {{ valores.url_instagram }} </td>
         <td>
           <img :src="valores.url_logo" width="100" height="80">
