@@ -177,6 +177,7 @@ export default {
       })
     },
     getData () {
+      this.init = true
       const ref = this.$firebase.database().ref('slide')
 
       ref.on('value', data => {

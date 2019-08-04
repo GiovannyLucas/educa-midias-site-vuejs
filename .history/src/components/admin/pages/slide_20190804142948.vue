@@ -177,6 +177,7 @@ export default {
       })
     },
     getData () {
+      this.init = true
       const ref = this.$firebase.database().ref('slide')
 
       ref.on('value', data => {
@@ -184,6 +185,7 @@ export default {
 
         this.slides = Object.keys(values).map(i => values[i])
       })
+    this.init = false
     },
     removeItem (key) {
       if (this.slides.length === 1) {

@@ -20,7 +20,7 @@
         <td> {{ valores.Data_Fim }} </td>
         <td> {{ valores.Titulo }} </td>
         <td>
-          <img :src="valores.url" width="100" height="80">
+          <img :src="valores.url_img" width="100" height="80">
         </td>
         <td>
           <button><i style="color: blue" class="fa fa-refresh"></i></button> |
