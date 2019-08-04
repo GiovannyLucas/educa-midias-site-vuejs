@@ -82,25 +82,27 @@
     </v-dialog>
   </v-layout>
 
-  <v-layout justify-center>
+    <v-layout justify-center>
     <v-dialog v-model="dialog2" fullscreen hide-overlay transition="dialog-bottom-transition">
-      <v-card class="card-dialog">
+      <v-card>
         <v-toolbar dark color="primary">
           <v-btn icon dark @click="dialog2 = false">
             <v-icon>close</v-icon>
           </v-btn>
           <v-toolbar-title>Ver colaborador</v-toolbar-title>
           <v-spacer></v-spacer>
+          <v-toolbar-items>
+            <v-btn dark text @click="dialog2 = false">Sair</v-btn>
+          </v-toolbar-items>
         </v-toolbar>
         <v-list three-line subheader>
           <v-subheader>{{ this.mensage[0] }}</v-subheader>
-          <v-list-item><br>
+          <v-list-item>
             <v-list-item-content xs12>
-              <v-list-item-title style="font-size: 25px">{{ this.mensage[1] }}</v-list-item-title><br>
-              <a :href="mensage[2]" style="text-decoration: none">Instagram <i class="fa fa-instagram"></i></a><br>
-              <span>({{ this.mensage[1] }})</span><br><br><br>
+              <v-list-item-title>{{ this.mensage[1] }}</v-list-item-title>
+              <a :href="mensage[2]">URL Instagram <i class="fa fa-instagram"></i></h5>
               <v-list-item-subtitle xs12>
-                <img :src="mensage[3]" style="width: 50%; height: 40vh" alt="Logo do colaborador">
+                <img :src="mensage[3]" style="width: 50%; height: 30vh" alt="Logo do colaborador">
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
@@ -123,10 +125,16 @@ export default {
       file: ''
     },
     dialog2: false,
+    notifications: false,
+    sound: true,
+    widgets: false,
     mensage: [],
     colaboradores: [],
     nomeRules: [
       v => !!v || 'Nome é obrigatório'
+    ],
+    faceRules: [
+      v => !!v || 'Facebook é obrigatório'
     ],
     instaRules: [
       v => !!v || 'Instagram é obrigatório'
@@ -262,9 +270,5 @@ th {
 .icon-close {
   margin-top: -20%;
   cursor: pointer;
-}
-.card-dialog {
-  align-items: center;
-  justify-content: center;
 }
 </style>
