@@ -22,7 +22,7 @@
         <td> {{ valores.data_postada }} </td>
         <td>
           <button><i style="color: blue" class="fa fa-refresh"></i></button> |
-          <button><i style="color: green" class="fa fa-eye"></i></button> |
+          <button @click="getDataUnica(valores.id)"><i style="color: green" class="fa fa-eye"></i></button> |
           <button @click="removeItem(valores.id)"><i style="color: red" class="fa fa-trash"></i></button>
         </td>
       </tr>
@@ -84,7 +84,43 @@
       </v-card>
     </v-dialog>
   </v-layout>
-    </div>
+
+  <v-layout justify-center>
+    <v-dialog v-model="dialog2" fullscreen hide-overlay transition="dialog-bottom-transition">
+      <v-card class="card-dialog">
+        <v-toolbar dark color="primary">
+          <v-btn icon dark @click="dialog2 = false">
+            <v-icon>close</v-icon>
+          </v-btn>
+          <v-toolbar-title>Ver notícia</v-toolbar-title>
+          <v-spacer></v-spacer>
+        </v-toolbar>
+        <v-list three-line subheader>
+          <v-subheader>{{ this.mensage[1] }}</v-subheader>
+          <v-list-item><br>
+            <v-list-item-content xs12>
+              <v-list-item-title style="font-size: 25px">{{ this.mensage[5] }}</v-list-item-title><br>
+              <div style="margin-left: 30%" class="col-md-12">
+                <div class="col-md-6">
+                  <span left>Resumo:</span><br>
+                  <span>{{ this.mensage[4] }}</span><br>
+                </div>
+                <div class="col-md-6">
+                  <span left>Notícia:</span><br>
+                  <span>{{ this.mensage[3] }}</span><br><br>
+                </div>
+              </div>
+              <v-list-item-subtitle xs12>
+                <img :src="mensage[2]" style="width: 50%; height: 40vh" alt="Imagem da notícia"><br><br>
+                <span>{{ this.mensage[0] }}</span><br>
+              </v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-card>
+    </v-dialog>
+  </v-layout>
+  </div>
 </template>
 
 <script>
@@ -98,6 +134,8 @@ export default {
       titulo: '',
       file: ''
     },
+    dialog2: false,
+    mensage: [],
     noticias: [],
     tituloRules: [
       v => !!v || 'Título é obrigatório'
@@ -208,6 +246,16 @@ export default {
       const ref = this.$firebase.database().ref('noticias')
 
       ref.child(key).remove()
+    },
+    getDataUnica (id) {
+      const ref = this.$firebase.database().ref(`noticias/${id}`)
+
+      ref.on('value', data => {
+        const values = data.val()
+
+        this.mensage = Object.keys(values).map(i => values[i])
+      })
+      this.dialog2 = true
     }
   },
   mounted () {
