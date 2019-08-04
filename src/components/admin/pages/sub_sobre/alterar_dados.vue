@@ -2,17 +2,30 @@
   <div class="container">
   <h1>Alterar dados sobre nós</h1>
     <v-flex>
-      <v-textarea label="Descreva o que é o projeto, o nome dos seus membros" :rules="descricaoRules" v-model="form.descricao"></v-textarea>
+      <v-textarea label="Descreva o que é o projeto, o nome dos seus membros" :rules="descricaoRules" v-model="form.descricao">
+
+      </v-textarea>
     </v-flex>
-    <v-flex xs12>
+    <v-flex>
+      <v-checkbox
+        v-model="alt_photo"
+        label="Deseja alterar a foto?"
+        class="font-text-field"
+        ></v-checkbox>
+    </v-flex>
+
+    <v-flex xs12 v-if="alt_photo">
       <input required type="file" @change="handleFile($event)" style="width: 100%"/>
     </v-flex>
+    <div xs12 v-else>
+      <img style="width: 40%;" alt="" :src="dados[1]">
+    </div>
     <div xs4 class="div-img">
       <img class="preview" alt="" v-if="view">
       <v-icon class="icon-close" v-if="form.file" @click="clearFile()">close</v-icon>
     </div>
-    <div class="form-group">
-      <v-btn color="green darken-1" text @click="submit()">
+    <div xs12 class="form-group">
+      <v-btn color="green darken-1" text @click="submit(dados[0])">
         <span style="color: white;"> <i class="fa fa-plus"></i> &nbsp; Adicionar</span>
       </v-btn>
     </div>
@@ -21,7 +34,9 @@
 <script>
 export default {
   data: () => ({
-    view: true,
+    alt_photo: false,
+    view: false,
+    dados: [],
     form: {
       descricao: '',
       file: ''
@@ -66,34 +81,45 @@ export default {
       preview.src = ''
       this.view = true
     },
-    async submit () {
+    async submit (key) {
       let url
 
       const ref = this.$firebase.database().ref('sobre_nos')
-      const id = ref.push().key
 
-      const snapshot = await this.$firebase.storage()
-        .ref('sobre_nos')
-        .child(this.fileName)
-        .put(this.form.file)
+      if (this.alt_photo && this.form.descricao !== '') {
+        const snapshot = await this.$firebase.storage()
+          .ref('sobre_nos')
+          .child(this.fileName)
+          .put(this.form.file)
 
-      url = await snapshot.ref.getDownloadURL()
+        url = await snapshot.ref.getDownloadURL()
 
-      const valores = {
-        id,
-        o_que_e: this.form.descricao,
-        img_dos_membros: url
+        ref.child(key).update({ o_que_e: this.form.descricao, img_dos_membros: url })
+      } else if (this.alt_photo && this.form.descricao === '') {
+        const snapshot = await this.$firebase.storage()
+          .ref('sobre_nos')
+          .child(this.fileName)
+          .put(this.form.file)
+
+        url = await snapshot.ref.getDownloadURL()
+        ref.child(key).update({ img_dos_membros: url })
+      } else {
+        ref.child(key).update({ o_que_e: this.form.descricao })
       }
+    },
+    getData () {
+      const ref = this.$firebase.database().ref('sobre_nos/-Ll3HIG_7DWI-UPOfOAZ')
 
-      ref.child(id).set(valores, err => {
-        if (err) {
-          console.log(err)
-        } else {
-          this.form.descricao = ''
-          this.form.file = ''
-        }
+      ref.on('value', data => {
+        const values = data.val()
+
+        this.dados = Object.keys(values).map(i => values[i])
+        console.log(Object.keys(values).map(i => values[i]))
       })
     }
+  },
+  mounted () {
+    this.getData()
   }
 }
 </script>
