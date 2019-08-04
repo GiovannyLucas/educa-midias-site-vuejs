@@ -1,30 +1,30 @@
 <template>
-  <div>
-    <h1>Slide</h1>
+    <div>
+    <h1>Colaboradores</h1>
     <hr>
-    <table class="table table-hover">
+    <table class="table table-hover tabela">
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Data Início</th>
-        <th scope="col">Data Fim</th>
-        <th scope="col">Título</th>
-        <th scope="col">Url imagem</th>
+        <th scope="col">nome</th>
+        <th scope="col">Url do Facebook</th>
+        <th scope="col">Url do Instagram</th>
+        <th scope="col">Logo</th>
         <th scope="col">Ações</th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(valores, k) in slides" :key="k">
-        <th scope="row"> {{ valores.id }} </th>
-        <td> {{ valores.Data_Inicio }} </td>
-        <td> {{ valores.Data_Fim }} </td>
-        <td> {{ valores.Titulo }} </td>
+      <tr v-for="(valores, k) in colaboradores" :key="k">
+        <th scope="row"> {{ valores.id }}</th>
+        <td> {{valores.nome}} </td>
+        <td> {{ valores.url_facebook }} </td>
+        <td> {{ valores.url_instagram }} </td>
         <td>
-          <img :src="valores.url" width="100" height="80">
+          <img :src="valores.url_logo" width="100" height="80">
         </td>
         <td>
           <button><i style="color: blue" class="fa fa-refresh"></i></button> |
-          <button><i style="color: green" class="fa fa-eye"></i></button> |
+          <button @click="getDataUnica(valores.id)"><i style="color: green" class="fa fa-eye"></i></button> |
           <button @click="removeItem(valores.id)" ><i style="color: red" class="fa fa-trash"></i></button>
         </td>
       </tr>
@@ -32,7 +32,7 @@
   </table>
   <span
     style="font-size: 13pt; color: grey"
-    v-if="slides.length === 0"
+    v-if="colaboradores.length === 0"
   >
     Nenhum dado encontrado!
   </span>
@@ -48,21 +48,20 @@
   </template>
       <v-card>
         <v-card-title>
-          <span class="headline">Adicionar imagem</span>
+          <span class="headline">Adicionar colaborador</span>
         </v-card-title>
         <v-card-text>
+
           <v-container grid-list-md>
             <v-layout wrap>
-              <v-flex xs6>
-                <legend>Data marcada para começar a passar</legend>
-                <v-date-picker locale="pt-br" color="black" v-model="form.pickerInicio"></v-date-picker>
-              </v-flex>
-              <v-flex xs6>
-                <legend>Data marcada para parar de passar</legend>
-                <v-date-picker locale="pt-br" color="black" v-model="form.pickerFim"></v-date-picker>
+              <v-flex xs12>
+                <v-text-field :rules="nomeRules" v-model="form.nome" label="Nome*" required></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-text-field v-model="form.titulo" label="Título*" required></v-text-field>
+                <v-text-field :rules="faceRules" v-model="form.facebook" label="Facebook*" required></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                <v-text-field :rules="instaRules" v-model="form.instagram" label="Instagram*" required></v-text-field>
               </v-flex>
               <v-flex xs12>
                 <input required type="file" @change="handleFile($event)" style="width: 100%"/>
@@ -92,20 +91,28 @@
 
 <script>
 export default {
-  data: () => {
-    return {
-      dialog: false,
-      view: true,
-      form: {
-        pickerInicio: '',
-        pickerFim: '',
-        titulo: '',
-        descricao: '',
-        file: ''
-      },
-      slides: []
-    }
-  },
+  /* eslint-disable */
+  data: () => ({
+    dialog: false,
+    view: true,
+    form: {
+      nome: '',
+      facebook: '',
+      instagram: '',
+      file: ''
+    },
+    mensage: [],
+    colaboradores: [],
+    nomeRules: [
+      v => !!v || 'Nome é obrigatório'
+    ],
+    faceRules: [
+      v => !!v || 'Facebook é obrigatório'
+    ],
+    instaRules: [
+      v => !!v || 'Instagram é obrigatório'
+    ]
+  }),
   computed: {
     fileName () {
       const {file} = this.form
@@ -144,55 +151,62 @@ export default {
     async submit () {
       let url
 
-      const ref = this.$firebase.database().ref('slide')
-      const key = ref.push().key
-
-      const pickerIni = this.form.pickerInicio.split('-')
-      const pckI = `${pickerIni[2]}/${pickerIni[1]}/${pickerIni[0]}`
-
-      const pickerFin = this.form.pickerFim.split('-')
-      const pckF = `${pickerFin[2]}/${pickerFin[1]}/${pickerFin[0]}`
+      const ref = this.$firebase.database().ref('colaboradores')
+      const id = ref.push().key
 
       const snapshot = await this.$firebase.storage()
-        .ref('slide')
+        .ref('colaboradores')
         .child(this.fileName)
         .put(this.form.file)
 
       url = await snapshot.ref.getDownloadURL()
 
       const valores = {
-        Data_Fim: pckF,
-        Data_Inicio: pckI,
-        Titulo: this.form.titulo,
-        id: key,
-        url
+        id,
+        nome: this.form.nome,
+        url_facebook: this.form.facebook,
+        url_instagram: this.form.instagram,
+        url_logo: url
       }
 
-      ref.child(key).set(valores, err => {
+      ref.child(id).set(valores, err => {
         if (err) {
           console.log(err)
         } else {
+          this.form.nome = ''
+          this.form.facebook = ''
+          this.form.instagram = ''
+          this.form.file = ''
           this.dialog = false
         }
       })
     },
     getData () {
-      const ref = this.$firebase.database().ref('slide')
+      const ref = this.$firebase.database().ref('colaboradores')
 
       ref.on('value', data => {
         const values = data.val()
 
-        this.slides = Object.keys(values).map(i => values[i])
+        this.colaboradores = Object.keys(values).map(i => values[i])
       })
     },
     removeItem (key) {
-      if (this.slides.length === 1) {
-        this.slides = []
+      if (this.colaboradores.length === 1) {
+        this.colaboradores = []
       }
 
-      const ref = this.$firebase.database().ref('slide')
+      const ref = this.$firebase.database().ref('colaboradores')
 
       ref.child(key).remove()
+    },
+    getDataUnica (id) {
+      const ref = this.$firebase.database().ref(`colaboradores/${id}`)
+
+      ref.on('value', data => {
+        const values = data.val()
+
+        this.mensage = Object.keys(values).map(i => values[i])
+      })
     }
   },
   mounted () {
@@ -201,8 +215,34 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 th {
   text-transform: uppercase;
+}
+.background-modal {
+  background: rgba(0, 0, 0, .5);
+  width: 100%;
+  height: 100vh;
+  z-index: 1000;
+  position: absolute;
+}
+.preview {
+  width: 40%;
+  transform: scale(1);
+  transition: 1s;
+}
+.preview:hover {
+  transform: scale(1.3);
+  transition: 1s;
+}
+.div-img {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.icon-close {
+  margin-top: -20%;
+  cursor: pointer;
 }
 </style>

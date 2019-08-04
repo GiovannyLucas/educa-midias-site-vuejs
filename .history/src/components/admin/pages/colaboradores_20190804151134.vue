@@ -58,6 +58,9 @@
                 <v-text-field :rules="nomeRules" v-model="form.nome" label="Nome*" required></v-text-field>
               </v-flex>
               <v-flex xs12>
+                <v-text-field :rules="faceRules" v-model="form.facebook" label="Facebook*" required></v-text-field>
+              </v-flex>
+              <v-flex xs12>
                 <v-text-field :rules="instaRules" v-model="form.instagram" label="Instagram*" required></v-text-field>
               </v-flex>
               <v-flex xs12>
@@ -123,6 +126,7 @@ export default {
     view: true,
     form: {
       nome: '',
+      facebook: '',
       instagram: '',
       file: ''
     },
@@ -193,6 +197,7 @@ export default {
       const valores = {
         id,
         nome: this.form.nome,
+        url_facebook: this.form.facebook,
         url_instagram: this.form.instagram,
         url_logo: url
       }
@@ -202,6 +207,7 @@ export default {
           console.log(err)
         } else {
           this.form.nome = ''
+          this.form.facebook = ''
           this.form.instagram = ''
           this.form.file = ''
           this.dialog = false

@@ -35,6 +35,7 @@
     v-if="slides.length === 0"
   >
     Nenhum dado encontrado!
+    <i class="fa fa-spinner fa-spin" style="color: red" right v-if="init"></i>
   </span>
   <v-layout justify-center>
     <v-dialog v-model="dialog" fullscreen persistent max-width="600px">
@@ -94,6 +95,7 @@
 export default {
   data: () => {
     return {
+      init: false,
       dialog: false,
       view: true,
       form: {
@@ -196,7 +198,9 @@ export default {
     }
   },
   mounted () {
+    this.init = true
     this.getData()
+    this.init = false
   }
 }
 </script>

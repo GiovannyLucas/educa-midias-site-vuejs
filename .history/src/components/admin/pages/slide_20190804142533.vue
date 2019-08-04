@@ -35,6 +35,7 @@
     v-if="slides.length === 0"
   >
     Nenhum dado encontrado!
+    <i class="fa fa-spinner fa-spin" style="color: red" right v-if="init"></i>
   </span>
   <v-layout justify-center>
     <v-dialog v-model="dialog" fullscreen persistent max-width="600px">
@@ -94,6 +95,7 @@
 export default {
   data: () => {
     return {
+      init: false,
       dialog: false,
       view: true,
       form: {
@@ -177,6 +179,7 @@ export default {
       })
     },
     getData () {
+      this.init = true
       const ref = this.$firebase.database().ref('slide')
 
       ref.on('value', data => {
@@ -184,6 +187,7 @@ export default {
 
         this.slides = Object.keys(values).map(i => values[i])
       })
+    this.init = false
     },
     removeItem (key) {
       if (this.slides.length === 1) {

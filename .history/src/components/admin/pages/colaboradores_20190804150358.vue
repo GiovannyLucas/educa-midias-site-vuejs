@@ -58,6 +58,9 @@
                 <v-text-field :rules="nomeRules" v-model="form.nome" label="Nome*" required></v-text-field>
               </v-flex>
               <v-flex xs12>
+                <v-text-field :rules="faceRules" v-model="form.facebook" label="Facebook*" required></v-text-field>
+              </v-flex>
+              <v-flex xs12>
                 <v-text-field :rules="instaRules" v-model="form.instagram" label="Instagram*" required></v-text-field>
               </v-flex>
               <v-flex xs12>
@@ -91,21 +94,24 @@
           <v-btn icon dark @click="dialog2 = false">
             <v-icon>close</v-icon>
           </v-btn>
-          <v-toolbar-title>Ver colaborador</v-toolbar-title>
+          <v-toolbar-title>Settings</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
-            <v-btn dark text @click="dialog2 = false">Sair</v-btn>
+            <v-btn dark text @click="dialog2 = false">Save</v-btn>
           </v-toolbar-items>
         </v-toolbar>
         <v-list three-line subheader>
-          <v-subheader dark>{{ this.mensage[0] }}</v-subheader>
+          <v-subheader>User Controls</v-subheader>
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>{{ this.mensage[1] }}</v-list-item-title>
-              <v-list-item-subtitle>URL Facebook: {{ this.mensage[2] }}</v-list-item-subtitle>
-              <v-list-item-subtitle>
-                <img :src="mensage[3]" style="width: 50%; height: 30vh" alt="Logo do colaborador">
-              </v-list-item-subtitle>
+              <v-list-item-title>Content filtering</v-list-item-title>
+              <v-list-item-subtitle>Set the content filtering level to restrict apps that can be downloaded</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>Password</v-list-item-title>
+              <v-list-item-subtitle>Require password for purchase or use password to restrict purchase</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -123,6 +129,7 @@ export default {
     view: true,
     form: {
       nome: '',
+      facebook: '',
       instagram: '',
       file: ''
     },
@@ -193,6 +200,7 @@ export default {
       const valores = {
         id,
         nome: this.form.nome,
+        url_facebook: this.form.facebook,
         url_instagram: this.form.instagram,
         url_logo: url
       }
@@ -202,6 +210,7 @@ export default {
           console.log(err)
         } else {
           this.form.nome = ''
+          this.form.facebook = ''
           this.form.instagram = ''
           this.form.file = ''
           this.dialog = false
