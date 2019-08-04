@@ -146,6 +146,8 @@ export default {
       this.getDataUnica()
 
       ref.child(key).update({ lida: true })
+
+      this.$root.$emit('MsgLida::true')
     },
     removeItem (key) {
       if (this.mensages.length === 1) {

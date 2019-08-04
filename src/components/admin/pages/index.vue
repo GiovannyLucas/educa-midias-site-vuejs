@@ -24,6 +24,22 @@
             </v-list-tile>
 
             <v-list-tile @click.stop="drawer = !drawer">
+              <v-list-tile-action>
+                <v-badge>
+                  <template v-slot:badge style="color: white; backgound: blue">{{ nlidas.length }}</template>
+                  <v-icon class="color-light">mail</v-icon>
+                </v-badge>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title class="color-light">
+                  <router-link class="color-light" id="link-text" to="/msgAdm">
+                    Mensagens
+                  </router-link>
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+
+            <v-list-tile @click.stop="drawer = !drawer">
             <v-list-tile-action>
               <v-icon class="color-light">close</v-icon>
             </v-list-tile-action>
@@ -71,14 +87,15 @@ export default {
         {title: 'Home', route: '/homeAdm', icon: 'home'},
         {title: 'Colaboradores', route: '/colaboradoresAdm', icon: 'group'},
         {title: 'Galeria', route: '/galeriaAdm', icon: 'perm_media'},
-        {title: 'Mensagens', route: '/msgAdm', icon: 'announcement'},
         {title: 'Notícias', route: 'noticiasAdm', icon: 'insert_drive_file'},
         {title: 'Slide', route: '/slideAdm', icon: 'slideshow'},
         {title: 'Root', route: '/root', icon: 'lock'},
         {title: 'Sobre nós', route: '/sobreAdm', icon: 'supervised_user_circle'}
       ],
       drawer: false,
-      closing: false
+      closing: false,
+      mensages: [],
+      nlidas: []
     }
   },
   props: {
@@ -91,7 +108,39 @@ export default {
       this.closing = false
 
       this.$router.push({ name: 'loginAdmin' })
+    },
+    renderMsg () {
+      const ref = this.$firebase.database().ref('mensagens')
+
+      ref.on('value', data => {
+        const values = data.val()
+
+        this.mensages = Object.keys(values).map(i => values[i])
+
+        for (let index = 0; index < this.mensages.length; index++) {
+          if (!this.mensages[index].lida) {
+            this.nlidas.push(this.mensages[index])
+          }
+        }
+      })
     }
+  },
+  created () {
+    this.$root.on('MsgLida::true', () => {
+      const ref = this.$firebase.database().ref('mensagens')
+
+      ref.on('value', data => {
+        const values = data.val()
+
+        this.mensages = Object.keys(values).map(i => values[i])
+
+        for (let index = 0; index < this.mensages.length; index++) {
+          if (!this.mensages[index].lida) {
+            this.nlidas.push(this.mensages[index])
+          }
+        }
+      })
+    })
   },
   mounted () {
     this.$firebase.auth().onAuthStateChanged(user => {
@@ -101,6 +150,8 @@ export default {
         this.$router.push({ name: 'loginAdmin' })
       }
     })
+
+    this.renderMsg()
   }
 }
 </script>
