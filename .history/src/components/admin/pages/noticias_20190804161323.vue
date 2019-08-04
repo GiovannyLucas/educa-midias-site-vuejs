@@ -100,16 +100,8 @@
           <v-list-item><br>
             <v-list-item-content xs12>
               <v-list-item-title style="font-size: 25px">{{ this.mensage[5] }}</v-list-item-title><br>
-              <div style="margin-left: 33%">
-                <div class="col-md-6">
-                  <span left>Resumo:</span><br>
-                  <span>{{ this.mensage[4] }}</span><br>
-                </div>
-                <div class="col-md-6">
-                  <span left>Notícia:</span><br>
-                  <span>{{ this.mensage[3] }}</span><br><br>
-                </div>
-              </div>
+              <span>Resumo: {{ this.mensage[4] }}</span><br>
+              <span>Notícia: {{ this.mensage[3] }}</span><br>
               <v-list-item-subtitle xs12>
                 <img :src="mensage[2]" style="width: 50%; height: 40vh" alt="Imagem da notícia"><br><br>
                 <span>{{ this.mensage[0] }}</span><br>

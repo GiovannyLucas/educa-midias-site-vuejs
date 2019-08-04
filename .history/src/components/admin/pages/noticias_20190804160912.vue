@@ -22,7 +22,7 @@
         <td> {{ valores.data_postada }} </td>
         <td>
           <button><i style="color: blue" class="fa fa-refresh"></i></button> |
-          <button @click="getDataUnica(valores.id)"><i style="color: green" class="fa fa-eye"></i></button> |
+          <button><i style="color: green" class="fa fa-eye"></i></button> |
           <button @click="removeItem(valores.id)"><i style="color: red" class="fa fa-trash"></i></button>
         </td>
       </tr>
@@ -96,23 +96,14 @@
           <v-spacer></v-spacer>
         </v-toolbar>
         <v-list three-line subheader>
-          <v-subheader>{{ this.mensage[1] }}</v-subheader>
+          <v-subheader>{{ this.mensage[0] }}</v-subheader>
           <v-list-item><br>
             <v-list-item-content xs12>
-              <v-list-item-title style="font-size: 25px">{{ this.mensage[5] }}</v-list-item-title><br>
-              <div style="margin-left: 33%">
-                <div class="col-md-6">
-                  <span left>Resumo:</span><br>
-                  <span>{{ this.mensage[4] }}</span><br>
-                </div>
-                <div class="col-md-6">
-                  <span left>Notícia:</span><br>
-                  <span>{{ this.mensage[3] }}</span><br><br>
-                </div>
-              </div>
+              <v-list-item-title style="font-size: 25px">{{ this.mensage[1] }}</v-list-item-title><br>
+              <a :href="mensage[2]" style="text-decoration: none">Instagram <i class="fa fa-instagram"></i></a><br>
+              <span>({{ this.mensage[2] }})</span><br><br><br>
               <v-list-item-subtitle xs12>
-                <img :src="mensage[2]" style="width: 50%; height: 40vh" alt="Imagem da notícia"><br><br>
-                <span>{{ this.mensage[0] }}</span><br>
+                <img :src="mensage[3]" style="width: 50%; height: 40vh" alt="Logo do colaborador">
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>

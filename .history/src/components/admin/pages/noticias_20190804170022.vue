@@ -100,7 +100,7 @@
           <v-list-item><br>
             <v-list-item-content xs12>
               <v-list-item-title style="font-size: 25px">{{ this.mensage[5] }}</v-list-item-title><br>
-              <div style="margin-left: 33%">
+              <div style="margin-left: 35%">
                 <div class="col-md-6">
                   <span left>Resumo:</span><br>
                   <span>{{ this.mensage[4] }}</span><br>
