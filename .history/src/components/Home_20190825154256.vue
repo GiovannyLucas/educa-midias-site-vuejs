@@ -63,36 +63,33 @@
     <v-divider></v-divider>
     <v-container>
       <v-layout>
-      <v-card style="width: 100%">
-        <div style="" v-for="(noticia, k) in noticias" :key="k">
+        <div style="display:flex" v-for="(noticia, k) in noticias" :key="k">
           <div>
             <img
-              height="100%"
-              width="50%"
+              height="300"
+              width="300"
               :src="noticia.img"
             />
           </div>
-          <div style="padding-left: 0%; text-align: start; ">
+          <div style="padding-left: 5%; text-align: start; ">
             <div>
-              <center><h3 class="title-noticia">{{ noticia.titulo }}</h3></center>
+              <h3 class="title-noticia">{{ noticia.titulo }}</h3>
               <br/>
-              <span style="margin: 0 10%;">{{ noticia.resumo }}</span>
+              <span style="">{{ noticia.resumo }}</span>
+            </div>
+            <div>
+              <router-link to="/noticias" right>Ver todas as notícias...</router-link>
             </div>
           </div>
         </div>
-      </v-card>
-    </v-layout>
+      </v-layout>
     </v-container>
-    <v-layout style="margin-left: 10%; margin-top: 0%">
-      <router-link to="/noticias" right>Ver todas as notícias...</router-link>
-    </v-layout>
 
     <v-layout  style="margin-top: 5%">
       <v-flex xs12 md12>
         <h3 class="title-content">QUEM SOMOS</h3>
       </v-flex>
     </v-layout>
-    <v-divider></v-divider>
 
       <v-row
         align="center"
@@ -103,43 +100,15 @@
             <v-card
               :elevation="hover ? 12 : 2"
               class="mx-auto"
-              height=""
+              height="400"
               max-width="1200"
             >
-              <v-card-text class="" style="font-size: 30px; font-family: Acme">Projeto Educa+Mídias</v-card-text>
-              <v-col style="width: 100%">
-                <v-img
-                  :src="quem_somos[0].img_dos_membros"
-                  height="400"
-                  style="width:100%"
-                ></v-img>
-              </v-col>
-              <v-col style="">
-                <v-card-item style="">
-                  <span style="font-size: 20px">
-                    {{ quem_somos[0].o_que_e }}
-                  </span>
-                </v-card-item>
-              </v-col>
+              <v-card-text class="my-4 text-center title">Educa+Mídias</v-card-text>
+              <v-card-item></v-card-item>
             </v-card>
           </v-hover>
         </v-col>
       </v-row>
-
-      <v-layout class="footer">
-          <img
-            class="footer-dev"
-            style=""
-            src="https://firebasestorage.googleapis.com/v0/b/site-educa-midias.appspot.com/o/sobre_nos%2Fcartaz03-1564941785016.jpg?alt=media&token=df948370-152a-48d1-b27d-898f33973e8d"
-          />
-          &nbsp;&nbsp;&nbsp;<p style="color: #FFF; margin-top: 3%">Giovanny Lucas</p>
-          <img
-            class="footer-dev"
-            style="margin-left: 20%"
-            src="https://firebasestorage.googleapis.com/v0/b/site-educa-midias.appspot.com/o/sobre_nos%2Fcartaz03-1564941785016.jpg?alt=media&token=df948370-152a-48d1-b27d-898f33973e8d"
-          />
-          &nbsp;&nbsp;&nbsp;<p style="color: #FFF; margin-top: 3%">Luiz David</p>
-      </v-layout>
   </div>
 </template>
 
@@ -148,8 +117,7 @@ export default {
   data: () => ({
     slides: [],
     galeria: [],
-    noticias: [],
-    quem_somos: []
+    noticias: []
   }),
 
   methods: {
@@ -179,15 +147,6 @@ export default {
 
         this.noticias = Object.keys(values).map(i => values[i])
       })
-    },
-    getDataQuemSomos () {
-      const ref = this.$firebase.database().ref('sobre_nos')
-
-      ref.on('value', data => {
-        const values = data.val()
-
-        this.quem_somos = Object.keys(values).map(i => values[i])
-      })
     }
 
     // getDataUnica (id) {
@@ -207,7 +166,6 @@ export default {
     this.getDataSlides()
     this.getDataGaleria()
     this.getDataNoticias()
-    this.getDataQuemSomos()
   }
 }
 </script>
@@ -228,20 +186,5 @@ export default {
   .title-noticia {
     font-size: 30px;
     font-family: 'Arial', 'Helvetica', 'sans-serif';
-  }
-  .footer {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    background: linear-gradient(to right, #240f6a, #f298e2);
-    padding: 20px;
-    margin-top: 5%;
-    justify-content: center;
-    align-items: center;
-  }
-  .footer-dev {
-    width: 100px;
-    height: 100px;
-    border-radius: 50px;
   }
 </style>

@@ -232,7 +232,6 @@ export default {
   .footer {
     width: 100%;
     display: flex;
-    flex-wrap: wrap;
     background: linear-gradient(to right, #240f6a, #f298e2);
     padding: 20px;
     margin-top: 5%;

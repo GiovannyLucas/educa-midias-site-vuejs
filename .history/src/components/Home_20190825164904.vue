@@ -76,14 +76,14 @@
             <div>
               <center><h3 class="title-noticia">{{ noticia.titulo }}</h3></center>
               <br/>
-              <span style="margin: 0 10%;">{{ noticia.resumo }}</span>
+              <span style="padding-left: 10%;">{{ noticia.resumo }}</span>
             </div>
           </div>
         </div>
       </v-card>
     </v-layout>
     </v-container>
-    <v-layout style="margin-left: 10%; margin-top: 0%">
+    <v-layout style="margin-left: 10%; margin-top: 1%">
       <router-link to="/noticias" right>Ver todas as notícias...</router-link>
     </v-layout>
 
@@ -127,18 +127,19 @@
       </v-row>
 
       <v-layout class="footer">
-          <img
-            class="footer-dev"
-            style=""
-            src="https://firebasestorage.googleapis.com/v0/b/site-educa-midias.appspot.com/o/sobre_nos%2Fcartaz03-1564941785016.jpg?alt=media&token=df948370-152a-48d1-b27d-898f33973e8d"
-          />
-          &nbsp;&nbsp;&nbsp;<p style="color: #FFF; margin-top: 3%">Giovanny Lucas</p>
-          <img
-            class="footer-dev"
-            style="margin-left: 20%"
-            src="https://firebasestorage.googleapis.com/v0/b/site-educa-midias.appspot.com/o/sobre_nos%2Fcartaz03-1564941785016.jpg?alt=media&token=df948370-152a-48d1-b27d-898f33973e8d"
-          />
-          &nbsp;&nbsp;&nbsp;<p style="color: #FFF; margin-top: 3%">Luiz David</p>
+        <img
+          class="footer-dev"
+          style=""
+          src="https://firebasestorage.googleapis.com/v0/b/site-educa-midias.appspot.com/o/sobre_nos%2Fcartaz03-1564941785016.jpg?alt=media&token=df948370-152a-48d1-b27d-898f33973e8d"
+        />
+        &nbsp;&nbsp;&nbsp;<p style="color: #FFF; margin-top: 3%">Giovanny Lucas</p>
+
+        <img
+          class="footer-dev"
+          style="margin-left: 20%"
+          src="https://firebasestorage.googleapis.com/v0/b/site-educa-midias.appspot.com/o/sobre_nos%2Fcartaz03-1564941785016.jpg?alt=media&token=df948370-152a-48d1-b27d-898f33973e8d"
+        />
+        &nbsp;&nbsp;&nbsp;<p style="color: #FFF; margin-top: 3%">Luiz David</p>
       </v-layout>
   </div>
 </template>
@@ -232,7 +233,6 @@ export default {
   .footer {
     width: 100%;
     display: flex;
-    flex-wrap: wrap;
     background: linear-gradient(to right, #240f6a, #f298e2);
     padding: 20px;
     margin-top: 5%;
