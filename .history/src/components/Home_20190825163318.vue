@@ -63,29 +63,27 @@
     <v-divider></v-divider>
     <v-container>
       <v-layout>
-      <v-card style="width: 100%">
-        <div style="" v-for="(noticia, k) in noticias" :key="k">
+        <div style="display:flex" v-for="(noticia, k) in noticias" :key="k">
           <div>
             <img
-              height="100%"
-              width="50%"
+              height="300"
+              width="300"
               :src="noticia.img"
             />
           </div>
-          <div style="padding-left: 0%; text-align: start; ">
+          <div style="padding-left: 5%; text-align: start; ">
             <div>
-              <center><h3 class="title-noticia">{{ noticia.titulo }}</h3></center>
+              <h3 class="title-noticia">{{ noticia.titulo }}</h3>
               <br/>
-              <span style="margin: 0 10%;">{{ noticia.resumo }}</span>
+              <span style="">{{ noticia.resumo }}</span>
+            </div>
+            <div>
+              <router-link to="/noticias" right>Ver todas as notícias...</router-link>
             </div>
           </div>
         </div>
-      </v-card>
-    </v-layout>
+      </v-layout>
     </v-container>
-    <v-layout style="margin-left: 10%; margin-top: 0%">
-      <router-link to="/noticias" right>Ver todas as notícias...</router-link>
-    </v-layout>
 
     <v-layout  style="margin-top: 5%">
       <v-flex xs12 md12>
@@ -127,18 +125,12 @@
       </v-row>
 
       <v-layout class="footer">
-          <img
-            class="footer-dev"
-            style=""
-            src="https://firebasestorage.googleapis.com/v0/b/site-educa-midias.appspot.com/o/sobre_nos%2Fcartaz03-1564941785016.jpg?alt=media&token=df948370-152a-48d1-b27d-898f33973e8d"
-          />
-          &nbsp;&nbsp;&nbsp;<p style="color: #FFF; margin-top: 3%">Giovanny Lucas</p>
-          <img
-            class="footer-dev"
-            style="margin-left: 20%"
-            src="https://firebasestorage.googleapis.com/v0/b/site-educa-midias.appspot.com/o/sobre_nos%2Fcartaz03-1564941785016.jpg?alt=media&token=df948370-152a-48d1-b27d-898f33973e8d"
-          />
-          &nbsp;&nbsp;&nbsp;<p style="color: #FFF; margin-top: 3%">Luiz David</p>
+        <img
+          class="footer-dev"
+          style=""
+          src="https://firebasestorage.googleapis.com/v0/b/site-educa-midias.appspot.com/o/sobre_nos%2Fcartaz03-1564941785016.jpg?alt=media&token=df948370-152a-48d1-b27d-898f33973e8d"
+        />
+        <p>Giovanny Lucas</p>
       </v-layout>
   </div>
 </template>
@@ -232,12 +224,9 @@ export default {
   .footer {
     width: 100%;
     display: flex;
-    flex-wrap: wrap;
     background: linear-gradient(to right, #240f6a, #f298e2);
     padding: 20px;
     margin-top: 5%;
-    justify-content: center;
-    align-items: center;
   }
   .footer-dev {
     width: 100px;
