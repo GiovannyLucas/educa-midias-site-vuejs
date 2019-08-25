@@ -48,10 +48,9 @@
             </v-col>
           </v-row>
         </v-card>
-    </v-layout>
-    <v-layout style="margin-left: 10%; margin-top: 2%">
       <router-link to="/galeria" right>Ver todas as imagens...</router-link>
     </v-layout>
+
   </div>
 </template>
 
@@ -80,7 +79,7 @@ export default {
 
         this.galeria = Object.keys(values).map(i => values[i])
       })
-    }
+    },
 
     // getDataUnica (id) {
     //   const ref = this.$firebase.database().ref(`colaboradores/${id}`)

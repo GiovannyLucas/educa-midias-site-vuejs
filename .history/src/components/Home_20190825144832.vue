@@ -19,9 +19,8 @@
       </v-flex>
     </v-layout>
     <v-divider></v-divider>
-    <v-layout style="margin-top: 0%">
+    <v-layout style="margin-top: 0%" v-for="(galery, k) in galeria" :key="k">
        <v-card
-          v-for="(galery, k) in galeria" :key="k"
           max-width="500"
           class="mx-auto"
         >
@@ -48,10 +47,9 @@
             </v-col>
           </v-row>
         </v-card>
+      <router-link to="/galeria" left>Ver todas as imagens...</router-link>
     </v-layout>
-    <v-layout style="margin-left: 10%; margin-top: 2%">
-      <router-link to="/galeria" right>Ver todas as imagens...</router-link>
-    </v-layout>
+
   </div>
 </template>
 
@@ -80,7 +78,7 @@ export default {
 
         this.galeria = Object.keys(values).map(i => values[i])
       })
-    }
+    },
 
     // getDataUnica (id) {
     //   const ref = this.$firebase.database().ref(`colaboradores/${id}`)

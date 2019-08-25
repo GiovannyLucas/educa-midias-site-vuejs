@@ -80,7 +80,7 @@ export default {
 
         this.galeria = Object.keys(values).map(i => values[i])
       })
-    }
+    },
 
     // getDataUnica (id) {
     //   const ref = this.$firebase.database().ref(`colaboradores/${id}`)

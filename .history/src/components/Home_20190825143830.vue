@@ -13,26 +13,21 @@
         </v-carousel>
       </v-flex>
     </v-layout>
-    <v-layout  style="margin-top: 5%">
-      <v-flex xs12 md12>
-        <h3 class="title-content">GALERIA</h3>
-      </v-flex>
-    </v-layout>
-    <v-divider></v-divider>
-    <v-layout style="margin-top: 0%">
+
+    <v-layout style="margin-top: 5%">
        <v-card
-          v-for="(galery, k) in galeria" :key="k"
-          max-width="500"
+          max-width="344"
           class="mx-auto"
+
         >
           <v-row
-            class="py-5 pl-5"
+            class="py-4 pl-4"
           >
             <v-col class="shrink">
               <v-img
-                height="300"
-                width="300"
-                :src="galery.url_img"
+                height="200"
+                width="200"
+                src="https://cdn.vuetifyjs.com/images/cards/store.jpg"
               ></v-img>
             </v-col>
             <v-col class="text-center">
@@ -49,17 +44,14 @@
           </v-row>
         </v-card>
     </v-layout>
-    <v-layout style="margin-left: 10%; margin-top: 2%">
-      <router-link to="/galeria" right>Ver todas as imagens...</router-link>
-    </v-layout>
+
   </div>
 </template>
 
 <script>
 export default {
   data: () => ({
-    slides: [],
-    galeria: []
+    slides: []
   }),
 
   methods: {
@@ -78,9 +70,9 @@ export default {
       ref.on('value', data => {
         const values = data.val()
 
-        this.galeria = Object.keys(values).map(i => values[i])
+        this.slides = Object.keys(values).map(i => values[i])
       })
-    }
+    },
 
     // getDataUnica (id) {
     //   const ref = this.$firebase.database().ref(`colaboradores/${id}`)
@@ -97,7 +89,6 @@ export default {
 
   created () {
     this.getDataSlides()
-    this.getDataGaleria()
   }
 }
 </script>
@@ -110,9 +101,5 @@ export default {
     align-items: center;
     justify-content: center;
     margin-top: 18%;
-  }
-  .title-content {
-    font-family: 'Acme';
-    font-size: 40px;
   }
 </style>

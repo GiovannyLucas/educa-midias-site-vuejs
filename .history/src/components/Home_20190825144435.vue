@@ -21,18 +21,18 @@
     <v-divider></v-divider>
     <v-layout style="margin-top: 0%">
        <v-card
-          v-for="(galery, k) in galeria" :key="k"
           max-width="500"
           class="mx-auto"
+
         >
           <v-row
             class="py-5 pl-5"
           >
             <v-col class="shrink">
               <v-img
-                height="300"
-                width="300"
-                :src="galery.url_img"
+                height="200"
+                width="200"
+                src="https://cdn.vuetifyjs.com/images/cards/store.jpg"
               ></v-img>
             </v-col>
             <v-col class="text-center">
@@ -43,15 +43,15 @@
                       <v-icon>favorite</v-icon>
                     </v-btn>
                   </v-col>
+
+
                 </v-row>
               </v-container>
             </v-col>
           </v-row>
         </v-card>
     </v-layout>
-    <v-layout style="margin-left: 10%; margin-top: 2%">
-      <router-link to="/galeria" right>Ver todas as imagens...</router-link>
-    </v-layout>
+
   </div>
 </template>
 
@@ -80,7 +80,7 @@ export default {
 
         this.galeria = Object.keys(values).map(i => values[i])
       })
-    }
+    },
 
     // getDataUnica (id) {
     //   const ref = this.$firebase.database().ref(`colaboradores/${id}`)
@@ -97,7 +97,6 @@ export default {
 
   created () {
     this.getDataSlides()
-    this.getDataGaleria()
   }
 }
 </script>
