@@ -21,7 +21,7 @@
           <img :src="valores.url_logo" width="100" height="80">
         </td>
         <td>
-          <button><i style="color: blue" class="fa fa-refresh"></i></button> |
+          <button @click="getDataUnicaRefresh(valores.id)"><i style="color: blue" class="fa fa-refresh"></i></button> |
           <button @click="getDataUnica(valores.id)"><i style="color: green" class="fa fa-eye"></i></button> |
           <button @click="removeItem(valores.id)" ><i style="color: red" class="fa fa-trash"></i></button>
         </td>
@@ -83,6 +83,58 @@
   </v-layout>
 
   <v-layout justify-center>
+    <v-dialog v-model="refresh" fullscreen persistent max-width="600px">
+      <template v-slot:activator="{ on }">
+  </template>
+      <v-card>
+        <v-card-title>
+          <span class="headline">Atualizar colaborador</span>
+        </v-card-title>
+        <v-card-text>
+
+          <v-container grid-list-md>
+            <v-layout wrap>
+              <v-flex xs12>
+                <v-text-field
+                :rules="nomeRules"
+                v-model="formRefresh.nome"
+                label="Atualizar nome*" required></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                <v-text-field :rules="instaRules" v-model="formRefresh.instagram" label="Atualizar Instagram*" required></v-text-field>
+              </v-flex>
+              <v-flex>
+              <v-checkbox
+                v-model="alt_photo"
+                label="Deseja alterar a foto?"
+                class="font-text-field"
+                ></v-checkbox>
+            </v-flex>
+
+            <v-flex xs12 v-if="alt_photo">
+              <input required type="file" @change="handleFile($event)" style="width: 100%"/>
+            </v-flex>
+            <div xs12 v-else>
+              <img style="width: 40%;" alt="" :src="colaboradoresRefresh[3]">
+            </div>
+            </v-layout>
+          </v-container>
+          <small style="color: red;">*indica campo obrigatório</small>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="red darken-1" text @click="refresh = false">
+            <span style="color: white;"> <i class="fa fa-times"></i> &nbsp; Fechar</span>
+          </v-btn>
+          <v-btn color="green darken-1" text @click.prevent="Atualizar(formRefresh.id)">
+            <span style="color: white;"> <i class="fa fa-plus"></i> &nbsp; Atualizar</span>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-layout>
+
+  <v-layout justify-center>
     <v-dialog v-model="dialog2" fullscreen hide-overlay transition="dialog-bottom-transition">
       <v-card class="card-dialog">
         <v-toolbar dark color="primary">
@@ -115,6 +167,9 @@
 export default {
   /* eslint-disable */
   data: () => ({
+    alt_photo: false,
+    view: false,
+    refresh: false,
     dialog: false,
     view: true,
     form: {
@@ -122,9 +177,16 @@ export default {
       instagram: '',
       file: ''
     },
+    formRefresh: {
+      id: '',
+      nome: '',
+      instagram: '',
+      logo: ''
+    },
     dialog2: false,
     mensage: [],
     colaboradores: [],
+    colaboradoresRefresh: [],
     nomeRules: [
       v => !!v || 'Nome é obrigatório'
     ],
@@ -145,6 +207,20 @@ export default {
     }
   },
   methods: {
+    handleFile (evt) {
+      this.form.file = ''
+      this.view = true
+      this.form.file = evt.target.files[0]
+
+      const durl = this.form.file
+
+      const preview = document.querySelector('.preview')
+
+      const fr = new FileReader()
+
+      fr.onload = (e) => (preview.src = e.target.result)
+      fr.readAsDataURL(durl)
+    },
     handleFile (evt) {
       this.form.file = ''
       this.view = true
@@ -225,6 +301,52 @@ export default {
         this.mensage = Object.keys(values).map(i => values[i])
       })
       this.dialog2 = true
+    },
+
+    getDataUnicaRefresh (id) {
+      const ref = this.$firebase.database().ref(`colaboradores/${id}`)
+
+      ref.on('value', data => {
+        const values = data.val()
+
+        this.colaboradoresRefresh = Object.keys(values).map(i => values[i])
+      })
+      this.refresh = true
+
+      this.formRefresh.nome = this.colaboradoresRefresh[1]
+      this.formRefresh.instagram = this.colaboradoresRefresh[2]
+      this.formRefresh.id = this.colaboradoresRefresh[0]
+      this.formRefresh.logo = colaboradoresRefresh[3]
+    },
+    async Atualizar (id) {
+      let url
+      const ref = this.$firebase.database().ref(`colaboradores`)
+
+      if (this.alt_photo && this.formRefresh.nome !== ''
+      && this.formRefresh.instagram !== ''
+      && this.formRefresh.logo !== '') {
+
+        const snapshot = await this.$firebase.storage()
+        .ref('colaboradores')
+        .child(this.fileName)
+        .put(this.form.file)
+
+        url = await snapshot.ref.getDownloadURL()
+
+        ref.child(id).update({
+          nome: this.formRefresh.nome,
+          url_instagram: this.formRefresh.instagram,
+          url_logo: url
+          });
+      } else if(!this.alt_photo && this.formRefresh.nome !== '' && this.formRefresh.instagram !== '') {
+        ref.child(id).update({
+          nome: this.formRefresh.nome,
+          url_instagram: this.formRefresh.instagram
+          });
+      }
+
+      this.refresh = false
+      this.alt_photo = false
     }
   },
   mounted () {
